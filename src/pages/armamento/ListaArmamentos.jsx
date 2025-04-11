@@ -20,10 +20,24 @@ const ListaArmamentos = ({ loading }) => {
         setTimeout(() => setLoadingState(false), 1000); 
     }, []);
 
-    function apagar(id) {
-        if (swal("Deletado com Sucesso!!!", "Registro apagado", "success", { dangerMode: true })) {
-            ArmamentosService.delete(id);
-            setArmamento(ArmamentosService.getAll());
+    async function apagar(id) {
+        const confirmacao = await swal({
+            title: "Tem certeza?",
+            text: "Essa ação não pode ser desfeita!",
+            icon: "warning",
+            buttons: ["Cancelar", "Deletar"],
+            dangerMode: true,
+        });
+    
+        if (confirmacao) {
+            try {
+                await ArmamentosService.delete(id);
+                setArmamento(ArmamentosService.getAll());
+                swal("Deletado com Sucesso!", "Registro apagado com sucesso.", "success");
+            } catch (error) {
+                swal("Erro!", "Não foi possível apagar o registro.", "error");
+                console.error("Erro ao apagar o registro:", error);
+            }
         }
     }
 

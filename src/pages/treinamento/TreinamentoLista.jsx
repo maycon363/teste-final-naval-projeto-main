@@ -23,11 +23,24 @@ const TreinamentoLista = ({ loading }) => {
 
   }, [])
 
-  function apagar(id) {
-    if(swal("Registro Deletado com Sucesso!!!", "Treinamento Cancelado", "success", {dangerMode: true,
-    })){
-      TreinamentoService.delete(id)
-      setTreinamento(TreinamentoService.getAll())
+  async function apagar(id) {
+    const confirmacao = await swal({
+      title: "Tem certeza?",
+      text: "Essa ação não pode ser desfeita!",
+      icon: "warning",
+      buttons: ["Cancelar", "Deletar"],
+      dangerMode: true,
+    });
+  
+    if (confirmacao) {
+      try {
+        await TreinamentoService.delete(id);
+        setTreinamento(TreinamentoService.getAll());
+        swal("Deletado com Sucesso!", "Registro apagado com sucesso.", "success");
+      } catch (error) {
+        swal("Erro!", "Não foi possível apagar o registro.", "error");
+        console.error("Erro ao apagar o registro:", error);
+      }
     }
   }
     

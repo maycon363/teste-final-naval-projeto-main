@@ -23,12 +23,26 @@ const ComandantesLista = ({ loading }) => {
 
   }, [])
 
-  function apagar(id) {
-    if(swal("Deletado com Sucesso!!!", "Registro apagado", "success", {dangerMode: true,})){
-      ComandatesService.delete(id)
-      setConmandante(ComandatesService.getAll())
+  async function apagar(id) {
+    const confirmacao = await swal({
+      title: "Tem certeza?",
+      text: "Essa ação não pode ser desfeita!",
+      icon: "warning",
+      buttons: ["Cancelar", "Deletar"],
+      dangerMode: true,
+    });
+  
+    if (confirmacao) {
+      try {
+        await ComandatesService.delete(id);
+        setConmandante(ComandatesService.getAll());
+        swal("Deletado com Sucesso!", "Registro apagado com sucesso.", "success");
+      } catch (error) {
+        swal("Erro!", "Não foi possível apagar o registro.", "error");
+        console.error("Erro ao apagar o registro:", error);
+      }
     }
-  } 
+  }
 
   return (
     <div>

@@ -24,11 +24,24 @@ const ManutencaoLista = ({ loading }) => {
 
   }, [])
 
-  function apagar(id) {
-    if(swal("Deletado com Sucesso!!!", "Registro apagado", "success", {dangerMode: true,
-    })){
-      ManutencaoService.delete(id)
-      seManutencao(ManutencaoService.getAll())
+  async function apagar(id) {
+    const confirmacao = await swal({
+      title: "Tem certeza?",
+      text: "Essa ação não pode ser desfeita!",
+      icon: "warning",
+      buttons: ["Cancelar", "Deletar"],
+      dangerMode: true,
+    });
+  
+    if (confirmacao) {
+      try {
+        await ManutencaoService.delete(id);
+        seManutencao(ManutencaoService.getAll());
+        swal("Deletado com Sucesso!", "Registro apagado com sucesso.", "success");
+      } catch (error) {
+        swal("Erro!", "Não foi possível apagar o registro.", "error");
+        console.error("Erro ao apagar o registro:", error);
+      }
     }
   }
     
