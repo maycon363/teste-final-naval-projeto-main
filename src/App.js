@@ -27,7 +27,7 @@ import ArmamentosNaval from './pages/ArmamentosNaval';
 function App() {
   return (
     <div>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Menu />
           <Container>
             <Routes>
