@@ -37,3 +37,27 @@
   }
 }
 
+@media (max-width: 768px) {
+  .scroll-mobile {
+    overflow-x: auto;
+  }
+
+  .scroll-mobile::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .scroll-mobile::-webkit-scrollbar-track {
+    background: #000000; /* cor do fundo da barra */
+  }
+
+  .scroll-mobile::-webkit-scrollbar-thumb {
+    background: #33ff00; /* cor da barrinha de scroll */
+    border-radius: 10px;
+  }
+
+  .scroll-mobile::-webkit-scrollbar-thumb:hover {
+    background: #33ff00; /* cor ao passar o mouse */
+  }
+}
+
+

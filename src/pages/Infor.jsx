@@ -31,8 +31,8 @@ const Infor = () => {
   return (
     <div>
       <Grid>
-        <Row className='mb-3'>
-          <div style={{ background: '#000000', color: 'white' }} className='text-center mb-1'>
+        <Row className='mb-3'>        
+          <div className="bg-dark text-white text-center mb-3 py-2">  
             <h1>Informações de todos os tipos de Navios de guerra</h1>
           </div>
           {warships.map((item, i) => (

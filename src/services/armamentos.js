@@ -1,13 +1,3 @@
-import LançadorFoguete from '../components/Videos/lançadorfoguete.mp4';
-import Missilantiareox from '../components/Videos/MissilAntiareo.mp4';
-import canhaosencundario from '../components/Videos/Ak630.30mm.mp4';
-import armaantiarea from '../components/Videos/armaantiareo.mp4';
-import missilantinavio from '../components/Videos/missilantinavio.mp4';
-import torpedo from '../components/Videos/torpedo.mp4';
-import Drone from '../components/Videos/Drone.mp4';
-import Metralhadora from '../components/Videos/metralhadora.mp4';
-import CanhaP from '../components/Videos/canhaoP.mp4';
-
 const armamentos = [
     {   
         src: "https://live.staticflickr.com/2821/11730086453_d0467035b4_b.jpg",
@@ -17,7 +7,7 @@ const armamentos = [
         peso: "Variável",
         tipo: "Artilharia Naval",
         descricao: "Utilizado para bombardeio de longo alcance e apoio a forças terrestres.",
-        video: LançadorFoguete,
+        video: "https://www.youtube.com/watch?v=0sibkQhDp5E",
     },
     {
         src: "https://www.naval.com.br/blog/wp-content/uploads/2020/09/OTO-76mm-62-2.jpg",
@@ -27,7 +17,7 @@ const armamentos = [
         peso: "3200 até 10000 kg",
         tipo: "Canhão Naval",
         descricao: "Arma principal de destruição de alvos marítimos e terrestres.",
-        video: CanhaP,
+        video: "https://www.youtube.com/watch?v=AbkG9k3Q2Dk&pp=ygUXIG1haW4gY2Fubm9uIHJ1c3NvIHNoaXA%3D",
     },
     {
         src: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/AK-630_30_mm_naval_CIWS_gun.JPEG/1200px-AK-630_30_mm_naval_CIWS_gun.JPEG",
@@ -37,7 +27,7 @@ const armamentos = [
         peso: "1200 até 6000 kg",
         tipo: "Canhão de Defesa",
         descricao: "Usado para defesa contra embarcações menores e apoio contra aeronaves.",
-        video: canhaosencundario,
+        video: 'https://www.youtube.com/watch?v=C1RnHiEDNQ8',
     },
     {
         src: "https://www.naval.com.br/blog/wp-content/uploads/2020/09/Atmaca-4.jpg",
@@ -47,7 +37,7 @@ const armamentos = [
         peso: "750 kg",
         tipo: "Míssil Guiado",
         descricao: "Projetado para destruir embarcações inimigas com alta precisão.",
-        video: missilantinavio,
+        video: "https://www.youtube.com/watch?v=0Bk45wh0y8g"
     },
     {
         src: "https://www.naval.com.br/blog/wp-content/uploads/2016/11/MBDAs-CAMM-missile-inflight-from-Sea-Ceptor-system-2013-Copyright-MBDA-2-1024x734.jpg",
@@ -57,7 +47,7 @@ const armamentos = [
         peso: "450 - 1600 kg",
         tipo: "Míssil de Defesa",
         descricao: "Defesa contra aeronaves e mísseis inimigos.",
-        video: Missilantiareox,
+        video: "https://www.youtube.com/watch?v=ulYEWf0NdhE",
     },
     {
         src: "https://www.naval.com.br/blog/wp-content/uploads/2015/02/Torpedo-F21-e1582729503267.jpg",
@@ -67,7 +57,7 @@ const armamentos = [
         peso: "Variável",
         tipo: "Arma Submarina",
         descricao: "Projetado para afundar embarcações inimigas com explosões abaixo da linha d'água.",
-        video: torpedo,
+        video: "https://www.youtube.com/watch?v=jF3680Kv-h8",
     },
     {
         src: "https://cdn-defesaaereanaval.nuneshost.com/wp-content/uploads/2021/05/Metralhadora-.50.jpg",
@@ -77,7 +67,7 @@ const armamentos = [
         peso: "50 kg",
         tipo: "Arma Leve",
         descricao: "Arma para defesa curta distância contra pequenas embarcações e ameaças aéreas.",
-        video: Metralhadora,
+        video: "https://www.youtube.com/watch?v=0nL4Sh_N2bQ",
     },
     {
         src: "https://www.naval.com.br/blog/wp-content/uploads/2023/11/CIWS-Phalanx.jpg",
@@ -87,7 +77,7 @@ const armamentos = [
         peso: "Variável",
         tipo: "Defesa Naval",
         descricao: "Canhão de tiro rápido para abater aeronaves e mísseis inimigos.",
-        video: armaantiarea,
+        video: "https://www.youtube.com/watch?v=-AaUNipuygE&pp=ygUZYW50aS1haXJjcmFmdCBjYW5ub24gc2hpcA%3D%3D",
     },
     {
         src: "https://images.ecestaticos.com/fXRl0myqSfNqZ2juu7zCg9ZxRQI=/0x0:2048x1152/1338x752/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2Fcde%2F2cb%2Fab8%2Fcde2cbab8b8a7492376b793290c34499.jpg",
@@ -97,7 +87,7 @@ const armamentos = [
         peso: "Variável",
         tipo: "Veículo Aéreo Não Tripulado",
         descricao: "Utilizado para reconhecimento e ataques de precisão.",
-        video: Drone,
+        video: "https://www.youtube.com/watch?v=CtFP0Pu8xlw&pp=ygUlVHVya2V5ICBzdXBlcnNvbmljIHN0ZWFsdGggQmF5cmFrdGFyIA%3D%3D",
     }
   ];
   

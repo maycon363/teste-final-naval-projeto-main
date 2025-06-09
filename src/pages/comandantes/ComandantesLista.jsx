@@ -46,7 +46,7 @@ const ComandantesLista = ({ loading }) => {
 
   return (
     <div>
-      <div style={{background: '#000000'}} className="text-center">
+      <div className="bg-dark text-white text-center mb-3 py-2">
         <h1><MilitaryTechIcon sx={{ fontSize: 50 }} color="primary"/>Lista De Comandantes de Esquadra</h1>
       </div>
       <div className="text-center">

@@ -45,7 +45,7 @@ const MissaoLista = ({ loading }) => {
 
   return (
     <div>
-      <div style={{background: '#000000'}} className="text-center">
+      <div className="bg-dark text-white text-center mb-3 py-2">
         <h1><PrivacyTipIcon sx={{ fontSize: 50 }} color="primary"/>Lista De Navios em Missão</h1>
       </div>
       <div className="text-center">
@@ -67,7 +67,7 @@ const MissaoLista = ({ loading }) => {
           <Row>
             {
               missao.map((item, i)=> (
-                <Col key={i} md={4} className='ml-4 g-2 letra '  >
+                <Col key={i} md={4} className='ml-4 g-2 letra mb-3'  >
                   <Card border="dark" style={{  color: "#000000", width: '18rem' }}>
                     <Card.Body>
                       <Card.Header style={{background: '#000000', color: 'white',}}><strong>{item.nome}</strong></Card.Header>
@@ -88,7 +88,6 @@ const MissaoLista = ({ loading }) => {
                         {item.situacao ===  "N" && <Spinner animation="border" variant="warning" />}
                       </Card.Text>   
                     </Card.Body>
-                  </Card>
                     <div className='mb-3 iconess'>
                       <Link to={'/missao/' + i}>
                         <Chip
@@ -105,6 +104,7 @@ const MissaoLista = ({ loading }) => {
                         onClick={() => apagar(i)}
                       />
                     </div>
+                  </Card>
                 </Col>
               ))
             }

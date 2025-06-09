@@ -80,8 +80,8 @@ const Treinamento = () => {
           aria-describedby="basic-addon2"
           />
         </InputGroup>
-        {errors.classe && <p style={{ color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px"}}>{errors.classe.message}</p>}
-        <InputGroup className="mb-3" controlId="classe">
+        {errors.tipo && <p style={{ color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px"}}>{errors.tipo.message}</p>}
+        <InputGroup className="mb-3" controlId="tipo">
           <Form.Control
           isInvalid={errors.tipo} 
           {...register("tipo", treinamentoValidator.tipo )}
@@ -90,7 +90,7 @@ const Treinamento = () => {
           aria-describedby="basic-addon2"
           />
         </InputGroup>
-        {errors.tipo && <p style={{ color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px" }}>{errors.tipo.message}</p>}
+        {errors.marinheiro && <p style={{ color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px" }}>{errors.marinheiro.message}</p>}
         <InputGroup className="mb-3" controlId="marinheiro">
           <Form.Control
           isInvalid={errors.marinheiro} 

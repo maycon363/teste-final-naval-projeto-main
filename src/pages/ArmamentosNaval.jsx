@@ -21,7 +21,7 @@ const ArmamentosNaval = () => {
     <div>
       <Grid>
         <Row className='mb-3'>
-          <div style={{ background: '#000000', color: 'white' }} className='text-center mb-1'>
+          <div className="bg-dark text-white text-center mb-3 py-2">
             <h1>Informações de todos os tipos de Armamentos Navais</h1>
           </div>
           {armamentos.map((item, i) => (

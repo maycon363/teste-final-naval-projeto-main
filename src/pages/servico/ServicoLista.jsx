@@ -9,6 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddModeratorIcon from '@mui/icons-material/AddModerator';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import SecurityIcon from '@mui/icons-material/Security';
+import imageMap from '../../services/config/imageConfig';
 
 const ServicoLista = ({ loading }) => {
 
@@ -45,7 +46,7 @@ const ServicoLista = ({ loading }) => {
 
   return (
     <div>
-      <div style={{background: '#000000'}} className="text-center">
+      <div className="bg-dark text-white text-center mb-3 py-2">
         <h1><SecurityIcon sx={{ fontSize: 50 }} color="primary"/>Lista De Navios em Serviço</h1>
       </div>
       <div className="text-center">
@@ -67,20 +68,22 @@ const ServicoLista = ({ loading }) => {
           <Row>
             {
               servico.map((item, i)=> (
-                <Col key={i} md={4} className='ml-4 g-2 letra '  >
+                <Col key={i} md={4} className='ml-4 g-2 letra mb-3'  >
                   <Card border="dark" style={{  color: "#000000", width: '18rem' }}>
-                      {item.imgs === "erroA" && <Alert variant="filled" severity="error">Alerta, arma não Selecionada!!!</Alert>}
-                      {item.imgs === "18" && <Card.Img variant="top" src="https://www.naval.com.br/blog/wp-content/uploads/2015/11/Russian-cruiser-RFS-Moskva-aerial.jpg" />}
-                      {item.imgs === "17" && <Card.Img variant="top" src="https://www.naval.com.br/blog/wp-content/uploads/2023/10/CVN-69-USS-Dwight-D-Eisenhower-454.jpg" />}
-                      {item.imgs === "16" && <Card.Img variant="top" src="https://www.airway.com.br/wp-content/uploads/2017/12/HMS_Ocean.jpg" />}
-                      {item.imgs === "15" && <Card.Img variant="top" src="https://www.naval.com.br/blog/wp-content/uploads/2015/01/Royal_Navy_Type_45_Destroyer_HMS_Dragon_MOD_45153124-e1524089086702.jpg" />}
-                      {item.imgs === "14" && <Card.Img variant="top" src="https://imgsapp2.correiobraziliense.com.br/app/noticia_127983242361/2019/01/01/728103/20181231185546693631o.jpg" />}
-                      {item.imgs === "13" && <Card.Img variant="top" src="https://www.naval.com.br/blog/wp-content/uploads/2015/04/FREMM-Carlo-Bergamini-foto-2-Marinha-Italiana.jpg" />}
-                      {item.imgs === "12" && <Card.Img variant="top" src="https://www.naval.com.br/blog/wp-content/uploads/2023/02/BR71-MKII-corvette-1280x785.jpeg" />}
-                      {item.imgs === "11" && <Card.Img variant="top" src="https://www.naval.com.br/blog/wp-content/uploads/2023/08/E2EC35C3-4A2D-407E-8482-B7B7228F21EF.jpeg" />} 
-                      {item.imgs === "10" && <Card.Img variant="top" src="https://www.naval.com.br/blog/wp-content/uploads/2018/03/RFA-Tidesurge.jpg" />} 
-                      {item.imgs === "9" && <Card.Img variant="top" src="https://p.turbosquid.com/ts-thumb/Ef/1QJKWR/Vl/r_viewport_002/png/1624540910/600x600/fit_q87/d7d1ad69293948028c1ec1665a942ef09ee8e85c/r_viewport_002.jpg" />} 
-                      {item.imgs === "8" && <Card.Img variant="top" src="https://cdn-defesaaereanaval.nuneshost.com/wp-content/uploads/2015/12/Raptor.jpg" />}
+                      {item.imges === "erro" ? (
+                          <Alert severity="error">Arma não selecionada!</Alert>
+                      ) : (
+                        imageMap[item.imges] ? (
+                        <Card.Img
+                            variant="top"
+                            src={imageMap[item.imges]}
+                            alt={item.nome || 'Imagem do armamento'}
+                            style={{ maxHeight: '200px', objectFit: 'cover' }}
+                        />
+                        ) : (
+                        <Alert severity="error">Imagem não encontrada para este código!</Alert>
+                        )
+                      )} 
                     <Card.Body>
                       <Card.Header style={{background: '#000000', color: 'white',}}><strong>{item.nome}</strong></Card.Header>
                     </Card.Body>
@@ -99,7 +102,6 @@ const ServicoLista = ({ loading }) => {
                           {item.situacao ===  "N" && <Spinner animation="border" variant="warning" />} 
                         </Card.Text>           
                     </Card.Body>
-                  </Card>
                     <div className='mb-2 iconess'>
                       <Link to={'/servico/' + i}>
                         <Chip
@@ -116,6 +118,7 @@ const ServicoLista = ({ loading }) => {
                         onClick={() => apagar(i)}
                       />
                     </div>
+                  </Card>
                 </Col>
               ))
             }

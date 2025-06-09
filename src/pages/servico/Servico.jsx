@@ -54,19 +54,19 @@ const Servico = () => {
               <h1><SecurityIcon sx={{ fontSize: 50 }} color="primary"/>Inserir Navio para Serviço</h1>
             </div>
               <Form.Group className="mb-3" controlId="imgs">
-                <Form.Select placeholder="Selecione a Classe do navio" aria-label="Default select example" {...register("imgs", servicoValidator.imgs)}>
-                  <option value={"erroA"}>Selecione a Classe do navio</option>
-                  <option value={"18"}>Cruzador</option>
-                  <option value={"17"}>Porta-Aviões</option>
-                  <option value={"16"}>Porta-helicopteros</option>
-                  <option value={"15"}>Destroyer</option>
-                  <option value={"14"}>Submarino</option>
-                  <option value={"13"}>Fragata</option>
-                  <option value={"12"}>Coverta</option>
-                  <option value={"11"}>Navio Patrulha</option>
-                  <option value={"10"}>Navio-tanque</option>
-                  <option value={"9"}>Navio Autônomo de Guerra</option>
-                  <option value={"8"}>Lancha de Guerra</option>
+                <Form.Select  aria-label="Default select example" {...register("imges", servicoValidator.imges)}>
+                  <option>Selecione a Classe do navio</option>
+                  <option value={"28"}>Cruzador</option>
+                  <option value={"27"}>Porta-Aviões</option>
+                  <option value={"26"}>Porta-helicopteros</option>
+                  <option value={"25"}>Destroyer</option>
+                  <option value={"24"}>Submarino</option>
+                  <option value={"23"}>Fragata</option>
+                  <option value={"22"}>Coverta</option>
+                  <option value={"21"}>Navio Patrulha</option>
+                  <option value={"20"}>Navio-tanque</option>
+                  <option value={"19"}>Navio Autônomo de Guerra</option>
+                  <option value={"18"}>Lancha de Guerra</option>
                 </Form.Select>
               </Form.Group>
               <InputGroup className="mb-3">

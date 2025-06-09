@@ -46,7 +46,7 @@ const TreinamentoLista = ({ loading }) => {
     
   return (
     <div>
-    <div style={{background: '#000000'}} className="text-center">
+    <div className="bg-dark text-white text-center mb-3 py-2">
       <h1 id='inicio'><TrackChangesIcon sx={{ fontSize: 50 }} color="primary"/>Lista De Navios nos Treinamentos</h1>
     </div>
     <div className="text-center">
@@ -68,7 +68,7 @@ const TreinamentoLista = ({ loading }) => {
           <Row>
             {
               treinamento.map((item, i)=> (
-                <Col key={i} D className='ml-4 g-2 letra '  >
+                <Col key={i} D className='ml-4 g-2 letra mb-3'  >
                   <Card border="dark" style={{ alignItems: "center",  color: "#000000", width: '18rem' }}>
                     <Card.Body>
                       <Card.Header style={{background: '#000000', color: 'white',}}><strong>Nome do Navio:</strong><h6>{item.navio}</h6></Card.Header>
@@ -91,23 +91,23 @@ const TreinamentoLista = ({ loading }) => {
                           {item.situacao ===  "N" && <Alert variant="filled" severity="warning">Nível Médio</Alert>}
                       </Card.Text>   
                     </Card.Body>
-                  </Card>
                     <div className='mb-2 iconess'>
-                    <Link to={'/treinamento/' + i}>
+                      <Link to={'/treinamento/' + i}>
+                        <Chip
+                          icon={<EditRoundedIcon />}
+                          label="Editar"
+                          color="success"
+                        />
+                      </Link>{' '}
+                        
                       <Chip
-                        icon={<EditRoundedIcon />}
-                        label="Editar"
-                        color="success"
+                        icon={<DeleteIcon />}
+                        color="error"
+                        label="Deletar"
+                        onClick={() => apagar(i)}
                       />
-                    </Link>{' '}
-                      
-                    <Chip
-                      icon={<DeleteIcon />}
-                      color="error"
-                      label="Deletar"
-                      onClick={() => apagar(i)}
-                    />
                     </div>
+                  </Card>
                 </Col>
               ))
             }         
