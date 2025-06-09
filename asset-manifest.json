@@ -1,0 +1,41 @@
+{
+  "files": {
+    "main.css": "/naval-app/static/css/main.ad65101f.css",
+    "main.js": "/naval-app/static/js/main.712be6b9.js",
+    "reactPlayerPreview.js": "/naval-app/static/js/reactPlayerPreview.6b265042.chunk.js",
+    "reactPlayerSoundCloud.js": "/naval-app/static/js/reactPlayerSoundCloud.63f5bd15.chunk.js",
+    "reactPlayerVimeo.js": "/naval-app/static/js/reactPlayerVimeo.1d0107fd.chunk.js",
+    "reactPlayerMux.js": "/naval-app/static/js/reactPlayerMux.a08e08a8.chunk.js",
+    "reactPlayerFacebook.js": "/naval-app/static/js/reactPlayerFacebook.4b2247cf.chunk.js",
+    "reactPlayerStreamable.js": "/naval-app/static/js/reactPlayerStreamable.06347dfd.chunk.js",
+    "reactPlayerWistia.js": "/naval-app/static/js/reactPlayerWistia.48dd0271.chunk.js",
+    "reactPlayerTwitch.js": "/naval-app/static/js/reactPlayerTwitch.dd7bb4dd.chunk.js",
+    "reactPlayerDailyMotion.js": "/naval-app/static/js/reactPlayerDailyMotion.8b27c031.chunk.js",
+    "reactPlayerMixcloud.js": "/naval-app/static/js/reactPlayerMixcloud.d04cf5e6.chunk.js",
+    "reactPlayerVidyard.js": "/naval-app/static/js/reactPlayerVidyard.07690efa.chunk.js",
+    "reactPlayerKaltura.js": "/naval-app/static/js/reactPlayerKaltura.25360802.chunk.js",
+    "reactPlayerFilePlayer.js": "/naval-app/static/js/reactPlayerFilePlayer.4ae1083c.chunk.js",
+    "static/js/488.12f87c36.chunk.js": "/naval-app/static/js/488.12f87c36.chunk.js",
+    "index.html": "/naval-app/index.html",
+    "main.ad65101f.css.map": "/naval-app/static/css/main.ad65101f.css.map",
+    "main.712be6b9.js.map": "/naval-app/static/js/main.712be6b9.js.map",
+    "reactPlayerPreview.6b265042.chunk.js.map": "/naval-app/static/js/reactPlayerPreview.6b265042.chunk.js.map",
+    "reactPlayerSoundCloud.63f5bd15.chunk.js.map": "/naval-app/static/js/reactPlayerSoundCloud.63f5bd15.chunk.js.map",
+    "reactPlayerVimeo.1d0107fd.chunk.js.map": "/naval-app/static/js/reactPlayerVimeo.1d0107fd.chunk.js.map",
+    "reactPlayerMux.a08e08a8.chunk.js.map": "/naval-app/static/js/reactPlayerMux.a08e08a8.chunk.js.map",
+    "reactPlayerFacebook.4b2247cf.chunk.js.map": "/naval-app/static/js/reactPlayerFacebook.4b2247cf.chunk.js.map",
+    "reactPlayerStreamable.06347dfd.chunk.js.map": "/naval-app/static/js/reactPlayerStreamable.06347dfd.chunk.js.map",
+    "reactPlayerWistia.48dd0271.chunk.js.map": "/naval-app/static/js/reactPlayerWistia.48dd0271.chunk.js.map",
+    "reactPlayerTwitch.dd7bb4dd.chunk.js.map": "/naval-app/static/js/reactPlayerTwitch.dd7bb4dd.chunk.js.map",
+    "reactPlayerDailyMotion.8b27c031.chunk.js.map": "/naval-app/static/js/reactPlayerDailyMotion.8b27c031.chunk.js.map",
+    "reactPlayerMixcloud.d04cf5e6.chunk.js.map": "/naval-app/static/js/reactPlayerMixcloud.d04cf5e6.chunk.js.map",
+    "reactPlayerVidyard.07690efa.chunk.js.map": "/naval-app/static/js/reactPlayerVidyard.07690efa.chunk.js.map",
+    "reactPlayerKaltura.25360802.chunk.js.map": "/naval-app/static/js/reactPlayerKaltura.25360802.chunk.js.map",
+    "reactPlayerFilePlayer.4ae1083c.chunk.js.map": "/naval-app/static/js/reactPlayerFilePlayer.4ae1083c.chunk.js.map",
+    "488.12f87c36.chunk.js.map": "/naval-app/static/js/488.12f87c36.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ad65101f.css",
+    "static/js/main.712be6b9.js"
+  ]
+}
