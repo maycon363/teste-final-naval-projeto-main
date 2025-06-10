@@ -2,7 +2,7 @@
   "name": "projetoa",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://seu-usuario.github.io/naval-app",
+  "homepage": "https://maycon363.github.io/teste-final-naval-projeto-main",
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
@@ -62,6 +62,7 @@
   },
   "devDependencies": {
     "babel-plugin-react-html-attrs": "^3.0.5",
-    "eslint-plugin-react-hooks": "^5.1.0"
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "gh-pages": "^6.3.0"
   }
 }

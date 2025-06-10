@@ -95,8 +95,7 @@ const ComandantesLista = ({ loading }) => {
                           {item.situacao ===  "N" && <Spinner animation="border" variant="warning" />} 
                         </Card.Text>                     
                       </Card.Body>
-                    </Card>
-                    <div className='mb-4 iconess'>
+                      <div className='mb-4 iconess'>
                         <Link to={'/comandantes/' + i}>
                           <Chip
                             icon={<EditRoundedIcon />}
@@ -110,7 +109,8 @@ const ComandantesLista = ({ loading }) => {
                           label="Deletar"
                           onClick={() => apagar(i)}
                         />
-                    </div>
+                      </div>
+                    </Card> 
                 </Col>
               ))
             }
