@@ -51,6 +51,7 @@ const Treinamento = () => {
         <div className="text-center">
             <h1><TrackChangesIcon sx={{ fontSize: 50 }} color="primary"/>Inserir Navio para Treinamento</h1>
         </div>
+         {errors.navio && <p style={{color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px"}}>{errors.navio.message}</p>}
         <InputGroup className="mb-3">
           <Form.Control
           isInvalid={errors.navio} 
@@ -61,7 +62,7 @@ const Treinamento = () => {
           type="text"
           />
         </InputGroup>
-        {errors.navio && <p style={{color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px"}}>{errors.navio.message}</p>}
+        {errors.guerra && <p style={{color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px"}}>{errors.guerra.message}</p>}
         <Form.Group className="mb-3" controlId="guerra">
             <Form.Select {...register("guerra", treinamentoValidator.guerra)}>
               <option>Informe Nome do Comandante</option>
@@ -71,6 +72,7 @@ const Treinamento = () => {
               {errors.guerra && <span>Campo Obrigatório</span>}
             </Form.Select>
         </Form.Group>
+        {errors.classe && <p style={{ color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px"}}>{errors.classe.message}</p>}
         <InputGroup className="mb-3" controlId="classe">
           <Form.Control
           isInvalid={errors.classe} 
@@ -100,7 +102,7 @@ const Treinamento = () => {
           aria-describedby="basic-addon2"
           />
         </InputGroup>
-        {errors.marinheiro && <p style={{ color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px" }}>{errors.marinheiro.message}</p>}
+        {errors.data && <p style={{ color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px" }}>{errors.data.message}</p>}
         <InputGroup className="mb-3" controlId="data">
           <Form.Control
           mask="99/99/9999" 
@@ -113,7 +115,7 @@ const Treinamento = () => {
           aria-describedby="basic-addon2"
           />
         </InputGroup>
-        {errors.data && <p style={{ color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px" }}>{errors.data.message}</p>}
+        {errors.situacao && <p style={{ color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px" }}>{errors.situacao.message}</p>}
         <Form.Group className="mb-3" controlId="situacao">
           <Form.Select aria-label="Informe o nível do Treinamento" {...register("situacao", treinamentoValidator.situacao)}>      
             <option value={"erro2"}>Informe o nível do Treinamento</option>

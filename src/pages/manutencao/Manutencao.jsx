@@ -68,8 +68,8 @@ const Manutencao = () => {
             aria-describedby="basic-addon2"
             />
           </InputGroup>
-          {errors.classe && <p style={{color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px"}}>{errors.classe.message}</p>}
-          <InputGroup className="mb-3" controlId="classe">
+          {errors.data && <p style={{color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px"}}>{errors.data.message}</p>}
+          <InputGroup className="mb-3" controlId="data">
             <Form.Control
             isInvalid={errors.data} 
             {...register("data", manutencaoValidator.data )}
@@ -80,8 +80,8 @@ const Manutencao = () => {
             type="data"
             />
           </InputGroup>
-          {errors.data && <p style={{color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px"}}>{errors.data.message}</p>}
-          <InputGroup className="mb-3" controlId="classe">
+          {errors.custo && <p style={{color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px"}}>{errors.custo.message}</p>}
+          <InputGroup className="mb-3" controlId="custo">
             <InputGroup.Text>$</InputGroup.Text>
             <Form.Control
             isInvalid={errors.custo} 

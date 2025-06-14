@@ -79,7 +79,7 @@ const Construcao = () => {
                   type="text"
                 />
               </InputGroup>
-              {errors.nome && <p style={{color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px"}}>{errors.nome.message}</p>}     
+              {errors.radar && <p style={{color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px"}}>{errors.radar.message}</p>}     
               <InputGroup className="mb-3" controlId="radar">
                 <Form.Control
                   isInvalid={errors.radar} 
@@ -111,7 +111,7 @@ const Construcao = () => {
                   aria-describedby="basic-addon2"
                 />
               </InputGroup>
-              {errors.carac && <p style={{color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px"}}>{errors.carac.message}</p>}
+              {errors.data && <p style={{color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px"}}>{errors.data.message}</p>}
               <InputGroup className="mb-3" controlId="data">
                 <Form.Control
                   isInvalid={errors.data} 

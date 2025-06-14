@@ -65,7 +65,7 @@ const Missao = () => {
           type="text"
           />
         </InputGroup>
-        {errors.nome && <p style={{color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px"}}>{errors.nome.message}</p>}
+        {errors.guerra && <p style={{color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px"}}>{errors.guerra.message}</p>}
         <Form.Group className="mb-3" controlId="guerra">
           <Form.Select {...register("guerra", missaoValidator.guerra)}>
             <option>Selecione o nome do Comandante</option>
@@ -74,6 +74,7 @@ const Missao = () => {
               ))}
           </Form.Select>
         </Form.Group>
+        {errors.classe && <p style={{color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px"}}>{errors.classe.message}</p>}
         <InputGroup className="mb-3" controlId="classe">
           <Form.Control
           isInvalid={errors.classe} 
@@ -83,6 +84,7 @@ const Missao = () => {
           aria-describedby="basic-addon2"
           />
         </InputGroup>
+        {errors.missao && <p style={{color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px"}}>{errors.missao.message}</p>}
         <InputGroup className="mb-3" controlId="missao">
           <Form.Control
           isInvalid={errors.missao} 
@@ -92,7 +94,7 @@ const Missao = () => {
           aria-describedby="basic-addon2"
           />
         </InputGroup>
-        {errors.missao && <span style={{color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px"}}>{errors.missao.message}</span>}
+        {errors.data && <span style={{color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px"}}>{errors.data.message}</span>}
         <InputGroup className="mb-3" controlId="data">
           <Form.Control
           isInvalid={errors.data} 
@@ -104,7 +106,7 @@ const Missao = () => {
           onChange={handleChange}
           />
         </InputGroup>
-        {errors.data && <span style={{color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px"}}>{errors.data.message}</span>}
+        {errors.situacao && <span style={{color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px"}}>{errors.situacao.message}</span>}
         <Form.Group className="mb-3" controlId="situacao">
           <Form.Select {...register("situacao", missaoValidator.situacao)}>
             <option value={"N"}>Selecione a situação</option>
