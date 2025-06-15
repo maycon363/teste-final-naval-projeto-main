@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/teste-final-naval-projeto-main/static/css/main.ad65101f.css",
-    "main.js": "/teste-final-naval-projeto-main/static/js/main.7134a2ce.js",
+    "main.js": "/teste-final-naval-projeto-main/static/js/main.225bd885.js",
     "reactPlayerPreview.js": "/teste-final-naval-projeto-main/static/js/reactPlayerPreview.6b265042.chunk.js",
     "reactPlayerSoundCloud.js": "/teste-final-naval-projeto-main/static/js/reactPlayerSoundCloud.63f5bd15.chunk.js",
     "reactPlayerVimeo.js": "/teste-final-naval-projeto-main/static/js/reactPlayerVimeo.1d0107fd.chunk.js",
@@ -18,7 +18,7 @@
     "static/js/488.12f87c36.chunk.js": "/teste-final-naval-projeto-main/static/js/488.12f87c36.chunk.js",
     "index.html": "/teste-final-naval-projeto-main/index.html",
     "main.ad65101f.css.map": "/teste-final-naval-projeto-main/static/css/main.ad65101f.css.map",
-    "main.7134a2ce.js.map": "/teste-final-naval-projeto-main/static/js/main.7134a2ce.js.map",
+    "main.225bd885.js.map": "/teste-final-naval-projeto-main/static/js/main.225bd885.js.map",
     "reactPlayerPreview.6b265042.chunk.js.map": "/teste-final-naval-projeto-main/static/js/reactPlayerPreview.6b265042.chunk.js.map",
     "reactPlayerSoundCloud.63f5bd15.chunk.js.map": "/teste-final-naval-projeto-main/static/js/reactPlayerSoundCloud.63f5bd15.chunk.js.map",
     "reactPlayerVimeo.1d0107fd.chunk.js.map": "/teste-final-naval-projeto-main/static/js/reactPlayerVimeo.1d0107fd.chunk.js.map",
@@ -36,6 +36,6 @@
   },
   "entrypoints": [
     "static/css/main.ad65101f.css",
-    "static/js/main.7134a2ce.js"
+    "static/js/main.225bd885.js"
   ]
 }
