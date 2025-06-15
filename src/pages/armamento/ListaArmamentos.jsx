@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ArmamentosService from '../../services/academico/ArmamentosService';
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 import { Card, Col, ListGroup, Container, Row, Spinner, ProgressBar } from 'react-bootstrap';
 import { Alert, Chip } from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -14,33 +14,49 @@ import imageMap from '../../services/config/imageConfig';
 
 const ListaArmamentos = ({ loading }) => {
     const [armamento, setArmamento] = useState([]);
-    const [loadingState, setLoadingState] = useState(true); 
+    const [loadingState, setLoadingState] = useState(true);
 
     useEffect(() => {
         setArmamento(ArmamentosService.getAll());
-        setTimeout(() => setLoadingState(false), 1000); 
+        setTimeout(() => setLoadingState(false), 1000);
     }, []);
 
     async function apagar(id) {
-        const confirmacao = await swal({
-            title: "Tem certeza?",
+        const result = await Swal.fire({
+            title: 'Tem certeza?',
             text: "Essa ação não pode ser desfeita!",
-            icon: "warning",
-            buttons: ["Cancelar", "Deletar"],
-            dangerMode: true,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sim, deletar!',
+            cancelButtonText: 'Cancelar'
         });
-    
-        if (confirmacao) {
+
+        if (result.isConfirmed) {
             try {
                 await ArmamentosService.delete(id);
                 setArmamento(ArmamentosService.getAll());
-                swal("Deletado com Sucesso!", "Registro apagado com sucesso.", "success");
+
+                await Swal.fire({
+                    title: 'Deletado!',
+                    text: 'Registro apagado com sucesso.',
+                    icon: 'success',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+
             } catch (error) {
-                swal("Erro!", "Não foi possível apagar o registro.", "error");
+                Swal.fire({
+                    title: 'Erro!',
+                    text: 'Não foi possível apagar o registro.',
+                    icon: 'error'
+                });
                 console.error("Erro ao apagar o registro:", error);
             }
         }
     }
+
 
     return (
         <div>
@@ -71,14 +87,14 @@ const ListaArmamentos = ({ loading }) => {
                                         <Alert severity="error">Arma não selecionada!</Alert>
                                     ) : (
                                         imageMap[item.imges] ? (
-                                        <Card.Img
-                                            variant="top"
-                                            src={imageMap[item.imges]}
-                                            alt={item.nome || 'Imagem do armamento'}
-                                            style={{ maxHeight: '200px', objectFit: 'cover' }}
-                                        />
+                                            <Card.Img
+                                                variant="top"
+                                                src={imageMap[item.imges]}
+                                                alt={item.nome || 'Imagem do armamento'}
+                                                style={{ maxHeight: '200px', objectFit: 'cover' }}
+                                            />
                                         ) : (
-                                        <Alert severity="warning">Imagem não encontrada para este código!</Alert>
+                                            <Alert severity="warning">Imagem não encontrada para este código!</Alert>
                                         )
                                     )}
                                     <Card.Body>
@@ -94,9 +110,9 @@ const ListaArmamentos = ({ loading }) => {
                                     <div className="mb-3 iconess">
                                         <Link to={'/armamentos/' + i}>
                                             <Chip
-                                            label="Editar"
-                                            color="success"
-                                            icon={<BorderColorIcon />}
+                                                label="Editar"
+                                                color="success"
+                                                icon={<BorderColorIcon />}
                                             />
                                         </Link>
                                         <Chip

@@ -1,13 +1,13 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import {  Spinner, Container, ListGroup, Col, Row, Card, ProgressBar } from 'react-bootstrap'
+import { Spinner, Container, ListGroup, Col, Row, Card, ProgressBar } from 'react-bootstrap'
 import ManutencaoService from '../../services/academico/ManutencaoService'
 import { Chip } from '@mui/material'
 import { Link } from 'react-router-dom'
-import {AiOutlineRollback} from 'react-icons/ai'
+import { AiOutlineRollback } from 'react-icons/ai'
 import { AiOutlinePlus } from 'react-icons/ai'
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import EngineeringIcon from '@mui/icons-material/Engineering';
@@ -25,30 +25,46 @@ const ManutencaoLista = ({ loading }) => {
   }, [])
 
   async function apagar(id) {
-    const confirmacao = await swal({
-      title: "Tem certeza?",
+    const result = await Swal.fire({
+      title: 'Tem certeza?',
       text: "Essa ação não pode ser desfeita!",
-      icon: "warning",
-      buttons: ["Cancelar", "Deletar"],
-      dangerMode: true,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sim, deletar!',
+      cancelButtonText: 'Cancelar'
     });
-  
-    if (confirmacao) {
+
+    if (result.isConfirmed) {
       try {
         await ManutencaoService.delete(id);
         seManutencao(ManutencaoService.getAll());
-        swal("Deletado com Sucesso!", "Registro apagado com sucesso.", "success");
+
+        await Swal.fire({
+          title: 'Deletado!',
+          text: 'Registro apagado com sucesso.',
+          icon: 'success',
+          timer: 2000,
+          showConfirmButton: false
+        });
+
       } catch (error) {
-        swal("Erro!", "Não foi possível apagar o registro.", "error");
+        Swal.fire({
+          title: 'Erro!',
+          text: 'Não foi possível apagar o registro.',
+          icon: 'error'
+        });
         console.error("Erro ao apagar o registro:", error);
       }
     }
   }
-    
+
+
   return (
     <div>
       <div className="bg-dark text-white text-center mb-3 py-2">
-        <h1><EngineeringIcon sx={{ fontSize: 50 }} color="primary"/>Lista De Navios em Manutenção</h1>
+        <h1><EngineeringIcon sx={{ fontSize: 50 }} color="primary" />Lista De Navios em Manutenção</h1>
       </div>
       <div className="text-center">
         <Link className='btn btn-success butao' to={'/manutencao/create'}><AiOutlinePlus /> Inserir</Link>
@@ -68,26 +84,26 @@ const ManutencaoLista = ({ loading }) => {
         <Container>
           <Row>
             {
-              manutencao.map((item, i)=> (
+              manutencao.map((item, i) => (
                 <Col key={i} md={4} className='ml-4 g-2 letra mb-3 '  >
-                  <Card border="dark" style={{  color: "#000000", width: '18rem' }}>
+                  <Card border="dark" style={{ color: "#000000", width: '18rem' }}>
                     <Card.Body>
-                      <Card.Header style={{background: '#000000', color: 'white',}}><strong>Nome do Navio: </strong>{item.nome}</Card.Header>
+                      <Card.Header style={{ background: '#000000', color: 'white', }}><strong>Nome do Navio: </strong>{item.nome}</Card.Header>
                     </Card.Body>
                     <Card.Body>
-                    <ListGroup md={1}>
-                      <ListGroup.Item style={{background: '#1C1C1C', color: 'white',}}><strong>Investimento: </strong>{item.custo}</ListGroup.Item >
-                      <ListGroup.Item style={{background: '#1C1C1C', color: 'white',}}><strong>Classe do Navio: </strong>{item.classe}</ListGroup.Item >
-                      <ListGroup.Item style={{background: '#1C1C1C', color: 'white',}}><strong>Data de entrega: </strong> {item.data}</ListGroup.Item >
-                    </ListGroup>
-                      <Card.Text style={{paddingLeft: "85px"}}>
-                        <strong>Progresso</strong>                        
+                      <ListGroup md={1}>
+                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Investimento: </strong>{item.custo}</ListGroup.Item >
+                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Classe do Navio: </strong>{item.classe}</ListGroup.Item >
+                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Data de entrega: </strong> {item.data}</ListGroup.Item >
+                      </ListGroup>
+                      <Card.Text style={{ paddingLeft: "85px" }}>
+                        <strong>Progresso</strong>
                       </Card.Text>
                       <Card.Text className='lets2'>
-                        {item.situacao ===  "A" && <Spinner animation="border" variant="success" />}
-                        {item.situacao ===  "I" && <Spinner animation="border" variant="danger" />}
-                        {item.situacao ===  "N" && <Spinner animation="border" variant="warning" />} 
-                      </Card.Text>                     
+                        {item.situacao === "A" && <Spinner animation="border" variant="success" />}
+                        {item.situacao === "I" && <Spinner animation="border" variant="danger" />}
+                        {item.situacao === "N" && <Spinner animation="border" variant="warning" />}
+                      </Card.Text>
                     </Card.Body>
                     <div className='mb-3 iconess'>
                       <Link to={'/manutencao/' + i}>
@@ -97,9 +113,9 @@ const ManutencaoLista = ({ loading }) => {
                           color="success"
                         />
                       </Link>
-                      
+
                       {' '}
-                        
+
                       <Chip
                         icon={<DeleteIcon />}
                         color="error"
@@ -113,7 +129,7 @@ const ManutencaoLista = ({ loading }) => {
             }
           </Row>
           <div className='text-center mb-3'>
-            <Link to={-1} className='btn btn-danger'><AiOutlineRollback/> Voltar</Link>
+            <Link to={-1} className='btn btn-danger'><AiOutlineRollback /> Voltar</Link>
           </div>
         </Container>
       )}

@@ -6,7 +6,7 @@ import TreinamentoService from '../../services/academico/TreinamentoService'
 import { Alert, Chip } from '@mui/material'
 import { AiOutlineRollback, AiOutlinePlus } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
-import swal from 'sweetalert';
+import Swal from 'sweetalert2'
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import TrackChangesIcon from '@mui/icons-material/TrackChanges';
@@ -14,7 +14,7 @@ import TrackChangesIcon from '@mui/icons-material/TrackChanges';
 const TreinamentoLista = ({ loading }) => {
 
   const [treinamento, setTreinamento] = useState([])
-  const [loadingState, setLoadingState] = useState(true); 
+  const [loadingState, setLoadingState] = useState(true);
 
   useEffect(() => {
 
@@ -24,41 +24,56 @@ const TreinamentoLista = ({ loading }) => {
   }, [])
 
   async function apagar(id) {
-    const confirmacao = await swal({
-      title: "Tem certeza?",
+    const result = await Swal.fire({
+      title: 'Tem certeza?',
       text: "Essa ação não pode ser desfeita!",
-      icon: "warning",
-      buttons: ["Cancelar", "Deletar"],
-      dangerMode: true,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sim, deletar!',
+      cancelButtonText: 'Cancelar'
     });
-  
-    if (confirmacao) {
+
+    if (result.isConfirmed) {
       try {
         await TreinamentoService.delete(id);
         setTreinamento(TreinamentoService.getAll());
-        swal("Deletado com Sucesso!", "Registro apagado com sucesso.", "success");
+
+        await Swal.fire({
+          title: 'Deletado!',
+          text: 'Registro apagado com sucesso.',
+          icon: 'success',
+          timer: 2000,
+          showConfirmButton: false
+        });
+
       } catch (error) {
-        swal("Erro!", "Não foi possível apagar o registro.", "error");
+        Swal.fire({
+          title: 'Erro!',
+          text: 'Não foi possível apagar o registro.',
+          icon: 'error'
+        });
         console.error("Erro ao apagar o registro:", error);
       }
     }
   }
-    
+
   return (
     <div>
-    <div className="bg-dark text-white text-center mb-3 py-2">
-      <h1 id='inicio'><TrackChangesIcon sx={{ fontSize: 50 }} color="primary"/>Lista De Navios nos Treinamentos</h1>
-    </div>
-    <div className="text-center">
-      <Link className='btn btn-success mb-3 butao' to={'/treinamento/create'}><AiOutlinePlus /> Inserir</Link>
-    </div>
-    {loading || loadingState ? (
-      <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100vh", width: "100%" }}>
-        <h1>
-          <Spinner animation="grow" variant="warning" /> Carregando...
-        </h1>
-        <ProgressBar striped variant="warning" animated now={100} style={{ width: "50%", marginTop: "15px" }} />
+      <div className="bg-dark text-white text-center mb-3 py-2">
+        <h1 id='inicio'><TrackChangesIcon sx={{ fontSize: 50 }} color="primary" />Lista De Navios nos Treinamentos</h1>
       </div>
+      <div className="text-center">
+        <Link className='btn btn-success mb-3 butao' to={'/treinamento/create'}><AiOutlinePlus /> Inserir</Link>
+      </div>
+      {loading || loadingState ? (
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100vh", width: "100%" }}>
+          <h1>
+            <Spinner animation="grow" variant="warning" /> Carregando...
+          </h1>
+          <ProgressBar striped variant="warning" animated now={100} style={{ width: "50%", marginTop: "15px" }} />
+        </div>
       ) : treinamento.length === 0 ? (
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100vh", width: "100%" }}>
           <h3>Nenhum registro encontrado.</h3>
@@ -67,29 +82,29 @@ const TreinamentoLista = ({ loading }) => {
         <Container>
           <Row>
             {
-              treinamento.map((item, i)=> (
+              treinamento.map((item, i) => (
                 <Col key={i} D className='ml-4 g-2 letra mb-3'  >
-                  <Card border="dark" style={{ alignItems: "center",  color: "#000000", width: '18rem' }}>
+                  <Card border="dark" style={{ alignItems: "center", color: "#000000", width: '18rem' }}>
                     <Card.Body>
-                      <Card.Header style={{background: '#000000', color: 'white',}}><strong>Nome do Navio:</strong><h6>{item.navio}</h6></Card.Header>
+                      <Card.Header style={{ background: '#000000', color: 'white', }}><strong>Nome do Navio:</strong><h6>{item.navio}</h6></Card.Header>
                     </Card.Body>
                     <Card.Body>
                       <ListGroup md={1}>
-                        <ListGroup.Item style={{background: '#1C1C1C', color: 'white',}}><strong>Classe do Navio: </strong>{item.classe}</ListGroup.Item>
-                        <ListGroup.Item style={{background: '#1C1C1C', color: 'white',}}><strong>Nome do Comandante: </strong>{item.guerra}</ListGroup.Item>
-                        <ListGroup.Item style={{background: '#1C1C1C', color: 'white',}}><strong>Data do Treinamento: </strong> {item.data}</ListGroup.Item>
-                        <ListGroup.Item style={{background: '#1C1C1C', color: 'white',}}><strong>Nome do Treinamento: </strong> {item.tipo}</ListGroup.Item>
-                        <ListGroup.Item style={{background: '#1C1C1C', color: 'white',}}><strong>Quantidade de marinheiros: </strong> {item.marinheiro}</ListGroup.Item>
+                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Classe do Navio: </strong>{item.classe}</ListGroup.Item>
+                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Nome do Comandante: </strong>{item.guerra}</ListGroup.Item>
+                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Data do Treinamento: </strong> {item.data}</ListGroup.Item>
+                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Nome do Treinamento: </strong> {item.tipo}</ListGroup.Item>
+                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Quantidade de marinheiros: </strong> {item.marinheiro}</ListGroup.Item>
                       </ListGroup>
-                      <Card.Text style={{paddingLeft: "32px"}}>
-                        <strong>Nível do Treinamento:</strong>                        
-                      </Card.Text> 
-                      <Card.Text style={{paddingLeft: "50px", paddingRight: "50px"}}>
-                          {item.situacao ===  "erro2" && <Alert variant="filled" severity="info">Não selecionado</Alert>}
-                          {item.situacao ===  "A" && <Alert variant="filled" severity="success">Nível baixo</Alert>}
-                          {item.situacao ===  "I" && <Alert variant="filled" severity="error">Nível Alto</Alert>}
-                          {item.situacao ===  "N" && <Alert variant="filled" severity="warning">Nível Médio</Alert>}
-                      </Card.Text>   
+                      <Card.Text style={{ paddingLeft: "32px" }}>
+                        <strong>Nível do Treinamento:</strong>
+                      </Card.Text>
+                      <Card.Text style={{ paddingLeft: "50px", paddingRight: "50px" }}>
+                        {item.situacao === "erro2" && <Alert variant="filled" severity="info">Não selecionado</Alert>}
+                        {item.situacao === "A" && <Alert variant="filled" severity="success">Nível baixo</Alert>}
+                        {item.situacao === "I" && <Alert variant="filled" severity="error">Nível Alto</Alert>}
+                        {item.situacao === "N" && <Alert variant="filled" severity="warning">Nível Médio</Alert>}
+                      </Card.Text>
                     </Card.Body>
                     <div className='mb-2 iconess'>
                       <Link to={'/treinamento/' + i}>
@@ -99,7 +114,7 @@ const TreinamentoLista = ({ loading }) => {
                           color="success"
                         />
                       </Link>{' '}
-                        
+
                       <Chip
                         icon={<DeleteIcon />}
                         color="error"
@@ -110,10 +125,10 @@ const TreinamentoLista = ({ loading }) => {
                   </Card>
                 </Col>
               ))
-            }         
+            }
           </Row>
           <div className='text-center mb-3'>
-            <Link to={-1} className='btn btn-danger'><AiOutlineRollback/> Voltar</Link>
+            <Link to={-1} className='btn btn-danger'><AiOutlineRollback /> Voltar</Link>
           </div>
         </Container>
       )}

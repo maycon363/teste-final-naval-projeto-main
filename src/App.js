@@ -24,10 +24,12 @@ import Infor from "./pages/Infor";
 import ScrollToTop from './components/ScrollToTop';
 import ArmamentosNaval from './pages/ArmamentosNaval';
 
+const basename = process.env.NODE_ENV === "production" ? process.env.PUBLIC_URL : "";
+
 function App() {
   return (
     <div>
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <BrowserRouter basename={basename}>
         <Menu />
           <Container>
             <Routes>

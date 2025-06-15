@@ -30,7 +30,7 @@
     "react-scripts": "^5.0.1",
     "remask": "^1.2.2",
     "styled-components": "^6.1.14",
-    "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.22.0",
     "tailwindcss": "^3.4.17",
     "web-vitals": "^4.2.4"
   },

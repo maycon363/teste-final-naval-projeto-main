@@ -40,17 +40,17 @@ const Menu = () => {
                 </Nav.Link>
                 <Nav.Link as={Link} to="/solicita">
                   <Wrench size={16} className="me-1" /> Solicitação
-                </Nav.Link>
-                <NavDropdown.Divider className="divider"/>
+                </Nav.Link>         
                 <NavDropdown.Header>📌 Informações</NavDropdown.Header>
+                <NavDropdown.Divider className="divider"/>
                 <Nav.Link as={Link} to="/armamento">
                   <Shield size={14} className="me-1" /> Armamentos
                 </Nav.Link>
                 <Nav.Link as={Link} to="/infor">
                   <Ship size={14} className="me-1" /> Navios
-                </Nav.Link>
-                <NavDropdown.Divider />
+                </Nav.Link>             
                 <NavDropdown.Header>🛠️ Serviços</NavDropdown.Header>
+                <NavDropdown.Divider />
                 <Nav.Link as={Link} to="/manutencao">
                   <Wrench size={14} className="me-1" /> Manutenção
                 </Nav.Link>

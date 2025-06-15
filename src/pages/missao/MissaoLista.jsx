@@ -7,37 +7,52 @@ import { Chip } from '@mui/material'
 import { AiOutlineRollback } from 'react-icons/ai'
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
 
 const MissaoLista = ({ loading }) => {
 
-    const [missao, seMissao] = useState([])
-    const [loadingState, setLoadingState] = useState(true);
+  const [missao, seMissao] = useState([])
+  const [loadingState, setLoadingState] = useState(true);
 
-    useEffect(() => {
+  useEffect(() => {
 
-      seMissao(MissaoService.getAll())
-      setTimeout(() => setLoadingState(false), 1000);
+    seMissao(MissaoService.getAll())
+    setTimeout(() => setLoadingState(false), 1000);
 
-    }, [])
+  }, [])
 
   async function apagar(id) {
-    const confirmacao = await swal({
-      title: "Tem certeza?",
+    const result = await Swal.fire({
+      title: 'Tem certeza?',
       text: "Essa ação não pode ser desfeita!",
-      icon: "warning",
-      buttons: ["Cancelar", "Deletar"],
-      dangerMode: true,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sim, deletar!',
+      cancelButtonText: 'Cancelar'
     });
-  
-    if (confirmacao) {
+
+    if (result.isConfirmed) {
       try {
         await MissaoService.delete(id);
         seMissao(MissaoService.getAll());
-        swal("Deletado com Sucesso!", "Registro apagado com sucesso.", "success");
+
+        await Swal.fire({
+          title: 'Deletado!',
+          text: 'Registro apagado com sucesso.',
+          icon: 'success',
+          timer: 2000,
+          showConfirmButton: false
+        });
+
       } catch (error) {
-        swal("Erro!", "Não foi possível apagar o registro.", "error");
+        Swal.fire({
+          title: 'Erro!',
+          text: 'Não foi possível apagar o registro.',
+          icon: 'error'
+        });
         console.error("Erro ao apagar o registro:", error);
       }
     }
@@ -46,7 +61,7 @@ const MissaoLista = ({ loading }) => {
   return (
     <div>
       <div className="bg-dark text-white text-center mb-3 py-2">
-        <h1><PrivacyTipIcon sx={{ fontSize: 50 }} color="primary"/>Lista De Navios em Missão</h1>
+        <h1><PrivacyTipIcon sx={{ fontSize: 50 }} color="primary" />Lista De Navios em Missão</h1>
       </div>
       <div className="text-center">
         <Link className='btn btn-success mb-3 butao' to={'/missao/create'}><AiOutlinePlus /> Inserir</Link>
@@ -58,35 +73,35 @@ const MissaoLista = ({ loading }) => {
           </h1>
           <ProgressBar striped variant="warning" animated now={100} style={{ width: "50%", marginTop: "15px" }} />
         </div>
-        ) : missao.length === 0 ? (
-          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100vh", width: "100%" }}>
-            <h3>Nenhum registro encontrado.</h3>
-          </div>
+      ) : missao.length === 0 ? (
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100vh", width: "100%" }}>
+          <h3>Nenhum registro encontrado.</h3>
+        </div>
       ) : (
         <Container>
           <Row>
             {
-              missao.map((item, i)=> (
+              missao.map((item, i) => (
                 <Col key={i} md={4} className='ml-4 g-2 letra mb-3'  >
-                  <Card border="dark" style={{  color: "#000000", width: '18rem' }}>
+                  <Card border="dark" style={{ color: "#000000", width: '18rem' }}>
                     <Card.Body>
-                      <Card.Header style={{background: '#000000', color: 'white',}}><strong>{item.nome}</strong></Card.Header>
+                      <Card.Header style={{ background: '#000000', color: 'white', }}><strong>{item.nome}</strong></Card.Header>
                     </Card.Body>
                     <Card.Body>
                       <ListGroup md={1}>
-                        <ListGroup.Item  style={{background: '#1C1C1C', color: 'white',}}><strong>Classe do Navio: </strong>{item.classe}</ListGroup.Item>
-                        <ListGroup.Item  style={{background: '#1C1C1C', color: 'white',}}><strong>Nome do Comandante: </strong>{item.guerra}</ListGroup.Item>
-                        <ListGroup.Item  style={{background: '#1C1C1C', color: 'white',}}><strong>Nome da Missão: </strong> {item.missao}</ListGroup.Item>
-                        <ListGroup.Item  style={{background: '#1C1C1C', color: 'white',}}><strong>Data da Missão: </strong> {item.data}</ListGroup.Item>
-                      </ListGroup> 
+                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Classe do Navio: </strong>{item.classe}</ListGroup.Item>
+                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Nome do Comandante: </strong>{item.guerra}</ListGroup.Item>
+                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Nome da Missão: </strong> {item.missao}</ListGroup.Item>
+                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Data da Missão: </strong> {item.data}</ListGroup.Item>
+                      </ListGroup>
                       <Card.Text className='lets'>
-                        <strong>Situação</strong>                        
-                      </Card.Text> 
+                        <strong>Situação</strong>
+                      </Card.Text>
                       <Card.Text className='lets2'>
-                        {item.situacao ===  "A" && <Spinner animation="border" variant="success" />}
-                        {item.situacao ===  "I" && <Spinner animation="border" variant="danger" />}
-                        {item.situacao ===  "N" && <Spinner animation="border" variant="warning" />}
-                      </Card.Text>   
+                        {item.situacao === "A" && <Spinner animation="border" variant="success" />}
+                        {item.situacao === "I" && <Spinner animation="border" variant="danger" />}
+                        {item.situacao === "N" && <Spinner animation="border" variant="warning" />}
+                      </Card.Text>
                     </Card.Body>
                     <div className='mb-3 iconess'>
                       <Link to={'/missao/' + i}>
@@ -96,7 +111,7 @@ const MissaoLista = ({ loading }) => {
                           color="success"
                         />
                       </Link>{' '}
-                        
+
                       <Chip
                         icon={<DeleteIcon />}
                         color="error"
@@ -110,10 +125,10 @@ const MissaoLista = ({ loading }) => {
             }
           </Row>
           <div className='text-center mb-3'>
-            <Link to={-1} className='btn btn-danger'><AiOutlineRollback/> Voltar</Link>
+            <Link to={-1} className='btn btn-danger'><AiOutlineRollback /> Voltar</Link>
           </div>
         </Container>
-      )}  
+      )}
     </div>
   );
 };
