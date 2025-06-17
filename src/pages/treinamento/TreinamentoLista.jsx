@@ -83,45 +83,82 @@ const TreinamentoLista = ({ loading }) => {
           <Row>
             {
               treinamento.map((item, i) => (
-                <Col key={i} D className='ml-4 g-2 letra mb-3'  >
-                  <Card border="dark" style={{ alignItems: "center", color: "#000000", width: '18rem' }}>
-                    <Card.Body>
-                      <Card.Header style={{ background: '#000000', color: 'white', }}><strong>Nome do Navio:</strong><h6>{item.navio}</h6></Card.Header>
-                    </Card.Body>
-                    <Card.Body>
-                      <ListGroup md={1}>
-                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Classe do Navio: </strong>{item.classe}</ListGroup.Item>
-                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Nome do Comandante: </strong>{item.guerra}</ListGroup.Item>
-                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Data do Treinamento: </strong> {item.data}</ListGroup.Item>
-                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Nome do Treinamento: </strong> {item.tipo}</ListGroup.Item>
-                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Quantidade de marinheiros: </strong> {item.marinheiro}</ListGroup.Item>
-                      </ListGroup>
-                      <Card.Text style={{ paddingLeft: "32px" }}>
-                        <strong>Nível do Treinamento:</strong>
-                      </Card.Text>
-                      <Card.Text style={{ paddingLeft: "50px", paddingRight: "50px" }}>
-                        {item.situacao === "erro2" && <Alert variant="filled" severity="info">Não selecionado</Alert>}
-                        {item.situacao === "A" && <Alert variant="filled" severity="success">Nível baixo</Alert>}
-                        {item.situacao === "I" && <Alert variant="filled" severity="error">Nível Alto</Alert>}
-                        {item.situacao === "N" && <Alert variant="filled" severity="warning">Nível Médio</Alert>}
-                      </Card.Text>
-                    </Card.Body>
-                    <div className='mb-2 iconess'>
-                      <Link to={'/treinamento/' + i}>
-                        <Chip
-                          icon={<EditRoundedIcon />}
-                          label="Editar"
-                          color="success"
-                        />
-                      </Link>{' '}
+                <Col key={i} md={4} className="mb-4">
+                  <Card
+                    style={{
+                      backgroundColor: '#111',
+                      color: '#fff',
+                      borderRadius: '12px',
+                      border: '1px solid #0d6efd',
+                      boxShadow: '0 4px 12px rgba(13, 110, 253, 0.2)',
+                      overflow: 'hidden',
+                      width: '100%'
+                    }}
+                  >
+                    <Card.Header
+                      style={{
+                        backgroundColor: '#006400',
+                        color: '#fff',
+                        textAlign: 'center',
+                        fontWeight: 'bold',
+                        fontSize: '18px'
+                      }}
+                    >
+                      <strong>Navio:</strong> {item.navio}
+                    </Card.Header>
 
-                      <Chip
-                        icon={<DeleteIcon />}
-                        color="error"
-                        label="Deletar"
-                        onClick={() => apagar(i)}
-                      />
-                    </div>
+                    <Card.Body>
+                      <ListGroup variant="flush">
+                        <ListGroup.Item style={{ backgroundColor: '#1a1a1a', color: '#fff', borderBottom: '1px solid #222' }}>
+                          <strong>Classe:</strong> {item.classe}
+                        </ListGroup.Item>
+                        <ListGroup.Item style={{ backgroundColor: '#1a1a1a', color: '#fff', borderBottom: '1px solid #222' }}>
+                          <strong>Comandante:</strong> {item.guerra}
+                        </ListGroup.Item>
+                        <ListGroup.Item style={{ backgroundColor: '#1a1a1a', color: '#fff', borderBottom: '1px solid #222' }}>
+                          <strong>Data:</strong> {item.data}
+                        </ListGroup.Item>
+                        <ListGroup.Item style={{ backgroundColor: '#1a1a1a', color: '#fff', borderBottom: '1px solid #222' }}>
+                          <strong>Treinamento:</strong> {item.tipo}
+                        </ListGroup.Item>
+                        <ListGroup.Item style={{ backgroundColor: '#1a1a1a', color: '#fff' }}>
+                          <strong>Marinheiros:</strong> {item.marinheiro}
+                        </ListGroup.Item>
+                      </ListGroup>
+
+                      <div className="mt-3 text-center">
+                        <strong>Nível do Treinamento:</strong>
+                        <div className="mt-2">
+                          {item.situacao === "erro2" && <Alert variant="filled" severity="info">Não selecionado</Alert>}
+                          {item.situacao === "A" && <Alert variant="filled" severity="success">Nível Baixo</Alert>}
+                          {item.situacao === "I" && <Alert variant="filled" severity="error">Nível Alto</Alert>}
+                          {item.situacao === "N" && <Alert variant="filled" severity="warning">Nível Médio</Alert>}
+                        </div>
+                      </div>
+
+                      <div className="text-center mt-3">
+                        <Link to={`/treinamento/${i}`}>
+                          <Chip
+                            icon={<EditRoundedIcon />}
+                            label="Editar"
+                            style={{
+                              backgroundColor: '#198754',
+                              color: '#fff',
+                              marginRight: '8px'
+                            }}
+                          />
+                        </Link>
+                        <Chip
+                          icon={<DeleteIcon />}
+                          label="Deletar"
+                          style={{
+                            backgroundColor: '#dc3545',
+                            color: '#fff'
+                          }}
+                          onClick={() => apagar(i)}
+                        />
+                      </div>
+                    </Card.Body>
                   </Card>
                 </Col>
               ))

@@ -6,12 +6,11 @@ import { Shield, Ship, Wrench, Users } from "lucide-react";
 const Menu = () => {
   const [isMobile, setIsMobile] = useState(false);
 
-  // Detecta se a tela é mobile
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-    handleResize(); // Chamada inicial
+    handleResize(); 
     window.addEventListener("resize", handleResize); // Atualiza ao redimensionar
     return () => window.removeEventListener("resize", handleResize);
   }, []);

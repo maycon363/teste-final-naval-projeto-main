@@ -66,7 +66,7 @@ const ManutencaoLista = ({ loading }) => {
       <div className="bg-dark text-white text-center mb-3 py-2">
         <h1><EngineeringIcon sx={{ fontSize: 50 }} color="primary" />Lista De Navios em Manutenção</h1>
       </div>
-      <div className="text-center">
+      <div className="text-center mb-2">
         <Link className='btn btn-success butao' to={'/manutencao/create'}><AiOutlinePlus /> Inserir</Link>
       </div>
       {loading || loadingState ? (
@@ -85,44 +85,69 @@ const ManutencaoLista = ({ loading }) => {
           <Row>
             {
               manutencao.map((item, i) => (
-                <Col key={i} md={4} className='ml-4 g-2 letra mb-3 '  >
-                  <Card border="dark" style={{ color: "#000000", width: '18rem' }}>
+                <Col key={i} xs={12} sm={6} md={4} className='mb-4'>
+                  <Card
+                    style={{
+                      backgroundColor: '#111', // preto suave
+                      color: '#fff',
+                      width: '100%',
+                      borderRadius: '12px',
+                      border: '1px solid #0d6efd', // azul bootstrap
+                      boxShadow: '0 4px 12px rgba(13, 110, 253, 0.2)',
+                      overflow: 'hidden'
+                    }}
+                  >
+                    <Card.Header
+                      style={{
+                        backgroundColor: '#006400',
+                        color: '#fff',
+                        fontWeight: 'bold',
+                        textAlign: 'center'
+                      }}
+                    >
+                      Nome do Navio: {item.nome}
+                    </Card.Header>
+
                     <Card.Body>
-                      <Card.Header style={{ background: '#000000', color: 'white', }}><strong>Nome do Navio: </strong>{item.nome}</Card.Header>
-                    </Card.Body>
-                    <Card.Body>
-                      <ListGroup md={1}>
-                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Investimento: </strong>{item.custo}</ListGroup.Item >
-                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Classe do Navio: </strong>{item.classe}</ListGroup.Item >
-                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Data de entrega: </strong> {item.data}</ListGroup.Item >
+                      <ListGroup variant="flush">
+                        <ListGroup.Item style={{ backgroundColor: '#1a1a1a', color: '#fff', borderBottom: '1px solid #333' }}>
+                          <strong>Investimento:</strong> {item.custo}
+                        </ListGroup.Item>
+                        <ListGroup.Item style={{ backgroundColor: '#1a1a1a', color: '#fff', borderBottom: '1px solid #333' }}>
+                          <strong>Classe do Navio:</strong> {item.classe}
+                        </ListGroup.Item>
+                        <ListGroup.Item style={{ backgroundColor: '#1a1a1a', color: '#fff' }}>
+                          <strong>Data de entrega:</strong> {item.data}
+                        </ListGroup.Item>
                       </ListGroup>
-                      <Card.Text style={{ paddingLeft: "85px" }}>
+
+                      <Card.Text className='text-center mt-3'>
                         <strong>Progresso</strong>
                       </Card.Text>
-                      <Card.Text className='lets2'>
+
+                      <div className="text-center mb-3">
                         {item.situacao === "A" && <Spinner animation="border" variant="success" />}
                         {item.situacao === "I" && <Spinner animation="border" variant="danger" />}
                         {item.situacao === "N" && <Spinner animation="border" variant="warning" />}
-                      </Card.Text>
-                    </Card.Body>
-                    <div className='mb-3 iconess'>
-                      <Link to={'/manutencao/' + i}>
+                      </div>
+
+                      <div className='text-center'>
+                        <Link to={'/manutencao/' + i}>
+                          <Chip
+                            icon={<EditRoundedIcon />}
+                            label="Editar"
+                            style={{ backgroundColor: '#0d6efd', color: '#fff', marginRight: '8px' }}
+                          />
+                        </Link>
+
                         <Chip
-                          icon={<EditRoundedIcon />}
-                          label="Editar"
-                          color="success"
+                          icon={<DeleteIcon />}
+                          label="Deletar"
+                          style={{ backgroundColor: '#dc3545', color: '#fff' }}
+                          onClick={() => apagar(i)}
                         />
-                      </Link>
-
-                      {' '}
-
-                      <Chip
-                        icon={<DeleteIcon />}
-                        color="error"
-                        label="Deletar"
-                        onClick={() => apagar(i)}
-                      />
-                    </div>
+                      </div>
+                    </Card.Body>
                   </Card>
                 </Col>
               ))

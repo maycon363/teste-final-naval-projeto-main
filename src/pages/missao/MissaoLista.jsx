@@ -82,43 +82,75 @@ const MissaoLista = ({ loading }) => {
           <Row>
             {
               missao.map((item, i) => (
-                <Col key={i} md={4} className='ml-4 g-2 letra mb-3'  >
-                  <Card border="dark" style={{ color: "#000000", width: '18rem' }}>
+                <Col key={i} md={4} className="mb-4">
+                  <Card
+                    style={{
+                      backgroundColor: '#111',
+                      color: '#fff',
+                      borderRadius: '12px',
+                      border: '1px solid #0d6efd',
+                      boxShadow: '0 4px 12px rgba(13, 110, 253, 0.2)',
+                      overflow: 'hidden'
+                    }}
+                  >
+                    <Card.Header
+                      style={{
+                        backgroundColor: '#006400',
+                        color: '#fff',
+                        textAlign: 'center',
+                        fontWeight: 'bold',
+                        borderBottom: '1px solid #0a58ca'
+                      }}
+                    >
+                      {item.nome}
+                    </Card.Header>
+
                     <Card.Body>
-                      <Card.Header style={{ background: '#000000', color: 'white', }}><strong>{item.nome}</strong></Card.Header>
-                    </Card.Body>
-                    <Card.Body>
-                      <ListGroup md={1}>
-                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Classe do Navio: </strong>{item.classe}</ListGroup.Item>
-                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Nome do Comandante: </strong>{item.guerra}</ListGroup.Item>
-                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Nome da Missão: </strong> {item.missao}</ListGroup.Item>
-                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Data da Missão: </strong> {item.data}</ListGroup.Item>
+                      <ListGroup variant="flush">
+                        <ListGroup.Item style={{ backgroundColor: '#1a1a1a', color: '#fff', borderBottom: '1px solid #222' }}>
+                          <strong>Classe do Navio:</strong> {item.classe}
+                        </ListGroup.Item>
+                        <ListGroup.Item style={{ backgroundColor: '#1a1a1a', color: '#fff', borderBottom: '1px solid #222' }}>
+                          <strong>Comandante:</strong> {item.guerra}
+                        </ListGroup.Item>
+                        <ListGroup.Item style={{ backgroundColor: '#1a1a1a', color: '#fff', borderBottom: '1px solid #222' }}>
+                          <strong>Missão:</strong> {item.missao}
+                        </ListGroup.Item>
+                        <ListGroup.Item style={{ backgroundColor: '#1a1a1a', color: '#fff' }}>
+                          <strong>Data da Missão:</strong> {item.data}
+                        </ListGroup.Item>
                       </ListGroup>
-                      <Card.Text className='lets'>
-                        <strong>Situação</strong>
-                      </Card.Text>
-                      <Card.Text className='lets2'>
+
+                      <div className="text-center mt-3">
+                        <strong>Situação:</strong><br />
                         {item.situacao === "A" && <Spinner animation="border" variant="success" />}
                         {item.situacao === "I" && <Spinner animation="border" variant="danger" />}
                         {item.situacao === "N" && <Spinner animation="border" variant="warning" />}
-                      </Card.Text>
-                    </Card.Body>
-                    <div className='mb-3 iconess'>
-                      <Link to={'/missao/' + i}>
-                        <Chip
-                          icon={<EditRoundedIcon />}
-                          label="Editar"
-                          color="success"
-                        />
-                      </Link>{' '}
+                      </div>
 
-                      <Chip
-                        icon={<DeleteIcon />}
-                        color="error"
-                        label="Deletar"
-                        onClick={() => apagar(i)}
-                      />
-                    </div>
+                      <div className="text-center mt-3">
+                        <Link to={'/missao/' + i}>
+                          <Chip
+                            icon={<EditRoundedIcon />}
+                            label="Editar"
+                            style={{
+                              backgroundColor: '#198754',
+                              color: '#fff',
+                              marginRight: '8px'
+                            }}
+                          />
+                        </Link>
+                        <Chip
+                          icon={<DeleteIcon />}
+                          label="Deletar"
+                          style={{
+                            backgroundColor: '#dc3545',
+                            color: '#fff'
+                          }}
+                          onClick={() => apagar(i)}
+                        />
+                      </div>
+                    </Card.Body>
                   </Card>
                 </Col>
               ))

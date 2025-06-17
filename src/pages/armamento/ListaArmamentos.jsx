@@ -81,47 +81,82 @@ const ListaArmamentos = ({ loading }) => {
                 <Container>
                     <Row>
                         {armamento.map((item, i) => (
-                            <Col key={i} md={4} className='ml-4 g-2 letra mb-3'>
-                                <Card border="danger" style={{ color: "#000000", width: '18rem' }}>
+                            <Col key={i} md={4} className="mb-4">
+                                <Card
+                                    style={{
+                                        backgroundColor: '#111',
+                                        color: '#fff',
+                                        borderRadius: '12px',
+                                        border: '1px solid #dc3545',
+                                        boxShadow: '0 4px 12px rgba(220, 53, 69, 0.2)',
+                                        overflow: 'hidden'
+                                    }}
+                                >
                                     {item.imges === "erro" ? (
                                         <Alert severity="error">Arma não selecionada!</Alert>
-                                    ) : (
-                                        imageMap[item.imges] ? (
-                                            <Card.Img
-                                                variant="top"
-                                                src={imageMap[item.imges]}
-                                                alt={item.nome || 'Imagem do armamento'}
-                                                style={{ maxHeight: '200px', objectFit: 'cover' }}
-                                            />
-                                        ) : (
-                                            <Alert severity="warning">Imagem não encontrada para este código!</Alert>
-                                        )
-                                    )}
-                                    <Card.Body>
-                                        <Card.Header style={{ background: '#000000', color: 'white' }}><strong>{item.nome}</strong></Card.Header>
-                                    </Card.Body>
-                                    <Card.Body>
-                                        <ListGroup md={1}>
-                                            <ListGroup.Item style={{ background: '#1C1C1C', color: 'white' }}><strong>Data de entrega: </strong> {item.data}</ListGroup.Item>
-                                            <ListGroup.Item style={{ background: '#1C1C1C', color: 'white' }}><strong>Investimento: ${item.custo}</strong></ListGroup.Item>
-                                            <ListGroup.Item style={{ background: '#1C1C1C', color: 'white' }}><strong>Quantidade de Armamento: </strong> {item.quantidade}</ListGroup.Item>
-                                        </ListGroup>
-                                    </Card.Body>
-                                    <div className="mb-3 iconess">
-                                        <Link to={'/armamentos/' + i}>
-                                            <Chip
-                                                label="Editar"
-                                                color="success"
-                                                icon={<BorderColorIcon />}
-                                            />
-                                        </Link>
-                                        <Chip
-                                            icon={<RemoveShoppingCartIcon />}
-                                            color="error"
-                                            label="Deletar"
-                                            onClick={() => apagar(i)}
+                                    ) : imageMap[item.imges] ? (
+                                        <Card.Img
+                                            variant="top"
+                                            src={imageMap[item.imges]}
+                                            alt={item.nome || 'Imagem do armamento'}
+                                            style={{
+                                                height: '200px',
+                                                objectFit: 'cover',
+                                                borderBottom: '3px solid #dc3545'
+                                            }}
                                         />
-                                    </div>
+                                    ) : (
+                                        <Alert severity="warning">Imagem não encontrada para este código!</Alert>
+                                    )}
+
+                                    <Card.Header
+                                        style={{
+                                            backgroundColor: '#006400',
+                                            color: '#fff',
+                                            textAlign: 'center',
+                                            fontWeight: 'bold',
+                                            borderBottom: '1px solid #b02a37'
+                                        }}
+                                    >
+                                        {item.nome}
+                                    </Card.Header>
+
+                                    <Card.Body>
+                                        <ListGroup variant="flush">
+                                            <ListGroup.Item style={{ backgroundColor: '#1a1a1a', color: '#fff', borderBottom: '1px solid #222' }}>
+                                                <strong>Data de entrega:</strong> {item.data}
+                                            </ListGroup.Item>
+                                            <ListGroup.Item style={{ backgroundColor: '#1a1a1a', color: '#fff', borderBottom: '1px solid #222' }}>
+                                                <strong>Investimento:</strong> ${item.custo}
+                                            </ListGroup.Item>
+                                            <ListGroup.Item style={{ backgroundColor: '#1a1a1a', color: '#fff' }}>
+                                                <strong>Quantidade:</strong> {item.quantidade}
+                                            </ListGroup.Item>
+                                        </ListGroup>
+
+                                        <div className="text-center mt-3">
+                                            <Link to={'/armamentos/' + i}>
+                                                <Chip
+                                                    icon={<BorderColorIcon />}
+                                                    label="Editar"
+                                                    style={{
+                                                       backgroundColor: '#0d6efd',
+                                                        color: '#fff',
+                                                        marginRight: '8px'
+                                                    }}
+                                                />
+                                            </Link>
+                                            <Chip
+                                                icon={<RemoveShoppingCartIcon />}
+                                                label="Deletar"
+                                                style={{
+                                                    backgroundColor: '#dc3545',
+                                                    color: '#fff'
+                                                }}
+                                                onClick={() => apagar(i)}
+                                            />
+                                        </div>
+                                    </Card.Body>
                                 </Card>
                             </Col>
                         ))}

@@ -80,8 +80,18 @@ const ConstrucaoLista = ({ loading }) => {
           <Row>
             {
               construcao.map((item, i) => (
-                <Col key={i} md={4} className='ml-4 g-2 mb-3'  >
-                  <Card border="dark" style={{ color: "#000000", width: '18rem' }}>
+                <Col key={i} md={4} className='mb-4'>
+                  <Card
+                    style={{
+                      backgroundColor: '#111', // fundo preto suave
+                      color: '#fff',
+                      width: '100%',
+                      borderRadius: '12px',
+                      border: '1px solid #0d6efd', // azul padrão
+                      boxShadow: '0 4px 12px rgba(13, 110, 253, 0.2)',
+                      overflow: 'hidden'
+                    }}
+                  >
                     {item.imges === "erro" ? (
                       <Alert severity="error">Arma não selecionada!</Alert>
                     ) : (
@@ -90,40 +100,71 @@ const ConstrucaoLista = ({ loading }) => {
                           variant="top"
                           src={imageMap[item.imges]}
                           alt={item.nome || 'Imagem do armamento'}
-                          style={{ maxHeight: '200px', objectFit: 'cover' }}
+                          style={{
+                            maxHeight: '200px',
+                            objectFit: 'cover',
+                            borderBottom: '1px solid #0d6efd'
+                          }}
                         />
                       ) : (
                         <Alert severity="error">Imagem não encontrada para este código!</Alert>
                       )
                     )}
-                    <Card.Body>
-                      <Card.Header className="text-center" style={{ background: '#000000', color: 'white', }}><strong>Nome da embarcação: </strong><h7>{item.nome}</h7></Card.Header>
-                    </Card.Body>
-                    <Card.Body>
-                      <ListGroup border="danger" md={1}>
-                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Data de entrega: </strong> {item.data}</ListGroup.Item>
-                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Investimento: </strong> {item.custo}</ListGroup.Item>
-                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Características do navio: </strong> {item.carac}</ListGroup.Item>
-                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Sistema de defesa do Navio: </strong> {item.siste}</ListGroup.Item>
-                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', }}><strong>Radar do Navio: </strong> {item.radar}</ListGroup.Item>
-                      </ListGroup>
-                    </Card.Body>
-                    <div className='mb-3 iconess'>
-                      <Link to={'/construcao/' + i}>
-                        <Chip
-                          icon={<BorderColorIcon />}
-                          label="Editar"
-                          color="success"
-                        />
-                      </Link>{' '}
 
-                      <Chip
-                        icon={<RemoveShoppingCartIcon />}
-                        color="error"
-                        label="Deletar"
-                        onClick={() => apagar(i)}
-                      />
-                    </div>
+                    <Card.Header
+                      style={{
+                        backgroundColor: '#006400',
+                        color: '#fff',
+                        fontWeight: 'bold',
+                        textAlign: 'center'
+                      }}
+                    >
+                      Nome da embarcação: {item.nome}
+                    </Card.Header>
+
+                    <Card.Body>
+                      <ListGroup variant="flush">
+                        <ListGroup.Item style={{ backgroundColor: '#1a1a1a', color: '#fff', borderBottom: '1px solid #222' }}>
+                          <strong>Data de entrega:</strong> {item.data}
+                        </ListGroup.Item>
+                        <ListGroup.Item style={{ backgroundColor: '#1a1a1a', color: '#fff', borderBottom: '1px solid #222' }}>
+                          <strong>Investimento:</strong> {item.custo}
+                        </ListGroup.Item>
+                        <ListGroup.Item style={{ backgroundColor: '#1a1a1a', color: '#fff', borderBottom: '1px solid #222' }}>
+                          <strong>Características do navio:</strong> {item.carac}
+                        </ListGroup.Item>
+                        <ListGroup.Item style={{ backgroundColor: '#1a1a1a', color: '#fff', borderBottom: '1px solid #222' }}>
+                          <strong>Sistema de defesa:</strong> {item.siste}
+                        </ListGroup.Item>
+                        <ListGroup.Item style={{ backgroundColor: '#1a1a1a', color: '#fff' }}>
+                          <strong>Radar:</strong> {item.radar}
+                        </ListGroup.Item>
+                      </ListGroup>
+
+                      <div className='text-center mt-3'>
+                        <Link to={'/construcao/' + i}>
+                          <Chip
+                            icon={<BorderColorIcon />}
+                            label="Editar"
+                            style={{
+                              backgroundColor: '#0d6efd',
+                              color: '#fff',
+                              marginRight: '8px'
+                            }}
+                          />
+                        </Link>
+
+                        <Chip
+                          icon={<RemoveShoppingCartIcon />}
+                          label="Deletar"
+                          style={{
+                            backgroundColor: '#dc3545',
+                            color: '#fff'
+                          }}
+                          onClick={() => apagar(i)}
+                        />
+                      </div>
+                    </Card.Body>
                   </Card>
                 </Col>
               ))

@@ -84,47 +84,81 @@ const ComandantesLista = ({ loading }) => {
           <Row>
             {
               comandante.map((item, i) => (
-                <Col key={i} md={4} className='ml-4 g-2 letra '  >
-                  <Card border="success" style={{ color: "#000000", width: '18rem' }}>
+                <Col key={i} md={4} className='mb-4'>
+                  <Card
+                    style={{
+                      backgroundColor: '#111',
+                      color: '#fff',
+                      width: '100%',
+                      borderRadius: '12px',
+                      border: '1px solid #0d6efd',
+                      boxShadow: '0 4px 12px rgba(13, 110, 253, 0.2)',
+                      overflow: 'hidden'
+                    }}
+                  >
+                    <Card.Header
+                      style={{
+                        backgroundColor: '#006400',
+                        color: '#fff',
+                        textAlign: 'center',
+                        fontWeight: 'bold',
+                        borderBottom: '1px solid #0a58ca'
+                      }}
+                    >
+                      Nome do Comandante:
+                      <div style={{ fontSize: '1.2rem' }}>{item.guerra}</div>
+                    </Card.Header>
+
                     <Card.Body>
-                      <Card.Header style={{ background: '#000000', color: 'white', borderLeft: "10px solid DodgerBlue" }}><strong>Nome do Comandante:</strong>
-                        <h5>
-                          {item.guerra}
-                        </h5>
-                      </Card.Header>
-                    </Card.Body>
-                    <Card.Body>
-                      <ListGroup md={4} >
-                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white', borderTop: "25px solid DodgerBlue" }}><strong>Data de Nascimento: </strong><h5>{item.data}</h5></ListGroup.Item>
-                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white' }}><strong>Idade: </strong><h5>{item.idade}</h5></ListGroup.Item>
-                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white' }}><strong>CPF: </strong><h5>{item.cpf}</h5></ListGroup.Item>
-                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white' }}><strong>RG: </strong><h5>{item.rg}</h5></ListGroup.Item>
-                        <ListGroup.Item style={{ background: '#1C1C1C', color: 'white' }}><strong>E-mail: </strong><h5>{item.email}</h5></ListGroup.Item>
+                      <ListGroup variant="flush">
+                        <ListGroup.Item style={{ backgroundColor: '#1a1a1a', color: '#fff', borderBottom: '1px solid #222' }}>
+                          <strong>Data de Nascimento:</strong> {item.data}
+                        </ListGroup.Item>
+                        <ListGroup.Item style={{ backgroundColor: '#1a1a1a', color: '#fff', borderBottom: '1px solid #222' }}>
+                          <strong>Idade:</strong> {item.idade}
+                        </ListGroup.Item>
+                        <ListGroup.Item style={{ backgroundColor: '#1a1a1a', color: '#fff', borderBottom: '1px solid #222' }}>
+                          <strong>CPF:</strong> {item.cpf}
+                        </ListGroup.Item>
+                        <ListGroup.Item style={{ backgroundColor: '#1a1a1a', color: '#fff', borderBottom: '1px solid #222' }}>
+                          <strong>RG:</strong> {item.rg}
+                        </ListGroup.Item>
+                        <ListGroup.Item style={{ backgroundColor: '#1a1a1a', color: '#fff' }}>
+                          <strong>E-mail:</strong> {item.email}
+                        </ListGroup.Item>
                       </ListGroup>
-                      <Card.Text className='lets'>
-                        <strong>Situação</strong>
+
+                      <Card.Text className='text-center' style={{ fontWeight: 'bold' }}>
+                        Situação:
                       </Card.Text>
-                      <Card.Text className='lets2'>
+                      <Card.Text className='text-center'>
                         {item.situacao === "A" && <Spinner animation="border" variant="success" />}
                         {item.situacao === "I" && <Spinner animation="border" variant="danger" />}
                         {item.situacao === "N" && <Spinner animation="border" variant="warning" />}
                       </Card.Text>
-                    </Card.Body>
-                    <div className='mb-4 iconess'>
-                      <Link to={'/comandantes/' + i}>
+
+                      <div className='mb-2 iconess'>
+                        <Link to={'/comandantes/' + i}>
+                          <Chip
+                            icon={<EditRoundedIcon />}
+                            label="Editar"
+                            style={{
+                              backgroundColor: '#0d6efd',
+                              color: '#fff',
+                            }}
+                          />
+                        </Link>
                         <Chip
-                          icon={<EditRoundedIcon />}
-                          label="Editar"
-                          color="success"
+                          icon={<DeleteIcon />}
+                          label="Deletar"
+                          style={{
+                            backgroundColor: '#dc3545',
+                            color: '#fff'
+                          }}
+                          onClick={() => apagar(i)}
                         />
-                      </Link>{' '}
-                      <Chip
-                        icon={<DeleteIcon />}
-                        color="error"
-                        label="Deletar"
-                        onClick={() => apagar(i)}
-                      />
-                    </div>
+                      </div>
+                    </Card.Body>
                   </Card>
                 </Col>
               ))
@@ -137,5 +171,5 @@ const ComandantesLista = ({ loading }) => {
       )}
     </div>
   );
-};
+}; 
 export default ComandantesLista
