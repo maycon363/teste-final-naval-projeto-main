@@ -3,7 +3,7 @@ import { Card, Col, Container, ListGroup, ProgressBar, Row, Spinner } from 'reac
 import { Link } from 'react-router-dom'
 import ServicoService from '../../services/academico/ServicoService'
 import { Alert, Chip } from '@mui/material'
-import { AiOutlineRollback } from 'react-icons/ai'
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import Swal from 'sweetalert2';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddModeratorIcon from '@mui/icons-material/AddModerator';
@@ -173,7 +173,7 @@ const ServicoLista = ({ loading }) => {
             }
           </Row>
           <div className='text-center mb-3'>
-            <Link to={-1} className='btn btn-danger'><AiOutlineRollback /> Voltar</Link>
+            <Link to={-1} className='btn btn-danger'><KeyboardBackspaceIcon /> Voltar</Link>
           </div>
         </Container>
       )}

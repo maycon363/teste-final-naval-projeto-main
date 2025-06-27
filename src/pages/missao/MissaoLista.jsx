@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import MissaoService from '../../services/academico/MissaoService'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { Chip } from '@mui/material'
-import { AiOutlineRollback } from 'react-icons/ai'
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import Swal from 'sweetalert2';
@@ -63,8 +63,14 @@ const MissaoLista = ({ loading }) => {
       <div className="bg-dark text-white text-center mb-3 py-2">
         <h1><PrivacyTipIcon sx={{ fontSize: 50 }} color="primary" />Lista De Navios em Missão</h1>
       </div>
-      <div className="text-center">
-        <Link className='btn btn-success mb-3 butao' to={'/missao/create'}><AiOutlinePlus /> Inserir</Link>
+      <div className="text-center mb-3">
+        <Link
+          to="/missao/create"
+          className="inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-medium px-4 py-2 rounded shadow transition duration-200"
+        >
+          <AiOutlinePlus size={18} />
+          Inserir
+        </Link>
       </div>
       {loading || loadingState ? (
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100vh", width: "100%" }}>
@@ -122,10 +128,12 @@ const MissaoLista = ({ loading }) => {
                       </ListGroup>
 
                       <div className="text-center mt-3">
-                        <strong>Situação:</strong><br />
-                        {item.situacao === "A" && <Spinner animation="border" variant="success" />}
-                        {item.situacao === "I" && <Spinner animation="border" variant="danger" />}
-                        {item.situacao === "N" && <Spinner animation="border" variant="warning" />}
+                        <strong className='mt-3 mb-2'>Situação:</strong><br />
+                        <div className='mb-2 mt-2'>
+                          {item.situacao === "A" && <Spinner animation="border" variant="success" />}
+                          {item.situacao === "I" && <Spinner animation="border" variant="danger" />}
+                          {item.situacao === "N" && <Spinner animation="border" variant="warning" />}
+                        </div>
                       </div>
 
                       <div className="text-center mt-3">
@@ -157,7 +165,7 @@ const MissaoLista = ({ loading }) => {
             }
           </Row>
           <div className='text-center mb-3'>
-            <Link to={-1} className='btn btn-danger'><AiOutlineRollback /> Voltar</Link>
+            <Link to={-1} className='btn btn-danger'><KeyboardBackspaceIcon /> Voltar</Link>
           </div>
         </Container>
       )}

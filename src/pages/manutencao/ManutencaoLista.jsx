@@ -5,7 +5,7 @@ import { Spinner, Container, ListGroup, Col, Row, Card, ProgressBar } from 'reac
 import ManutencaoService from '../../services/academico/ManutencaoService'
 import { Chip } from '@mui/material'
 import { Link } from 'react-router-dom'
-import { AiOutlineRollback } from 'react-icons/ai'
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { AiOutlinePlus } from 'react-icons/ai'
 import Swal from 'sweetalert2';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -67,7 +67,13 @@ const ManutencaoLista = ({ loading }) => {
         <h1><EngineeringIcon sx={{ fontSize: 50 }} color="primary" />Lista De Navios em Manutenção</h1>
       </div>
       <div className="text-center mb-2">
-        <Link className='btn btn-success butao' to={'/manutencao/create'}><AiOutlinePlus /> Inserir</Link>
+        <Link
+          to="/manutencao/create"
+          className="inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-medium px-4 py-2 rounded shadow transition duration-200"
+        >
+          <AiOutlinePlus size={18} />
+          Inserir
+        </Link>
       </div>
       {loading || loadingState ? (
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100vh", width: "100%" }}>
@@ -136,7 +142,7 @@ const ManutencaoLista = ({ loading }) => {
                           <Chip
                             icon={<EditRoundedIcon />}
                             label="Editar"
-                            style={{ backgroundColor: '#0d6efd', color: '#fff', marginRight: '8px' }}
+                            style={{ backgroundColor: '#198754', color: '#fff', marginRight: '8px' }}
                           />
                         </Link>
 
@@ -154,7 +160,7 @@ const ManutencaoLista = ({ loading }) => {
             }
           </Row>
           <div className='text-center mb-3'>
-            <Link to={-1} className='btn btn-danger'><AiOutlineRollback /> Voltar</Link>
+            <Link to={-1} className='btn btn-danger'><KeyboardBackspaceIcon /> Voltar</Link>
           </div>
         </Container>
       )}

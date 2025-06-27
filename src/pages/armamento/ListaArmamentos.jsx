@@ -61,10 +61,16 @@ const ListaArmamentos = ({ loading }) => {
     return (
         <div>
             <div className="bg-dark text-white text-center mb-3 py-2">
-                <h1><PaidIcon sx={{ fontSize: 50 }} color="primary" /> Lista dos Armamentos</h1>
+                <h1><PaidIcon sx={{ fontSize: 50 }} color="primary" /> Lista dos Equipamentos Bélicos</h1>
             </div>
-            <div className="text-center">
-                <Link className='btn btn-success mb-2 butao' to={'/armamentos/create'}><AiOutlinePlus /> Inserir</Link>
+            <div className="text-center mb-2">
+                <Link
+                    to="/armamentos/create"
+                    className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-medium px-4 py-2 rounded shadow transition duration-200"
+                >
+                    <AiOutlinePlus size={18} />
+                    Inserir
+                </Link>
             </div>
             {loading || loadingState ? (
                 <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100vh", width: "100%" }}>
@@ -140,7 +146,7 @@ const ListaArmamentos = ({ loading }) => {
                                                     icon={<BorderColorIcon />}
                                                     label="Editar"
                                                     style={{
-                                                       backgroundColor: '#0d6efd',
+                                                        backgroundColor: '#198754',
                                                         color: '#fff',
                                                         marginRight: '8px'
                                                     }}

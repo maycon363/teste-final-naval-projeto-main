@@ -23,6 +23,7 @@ import SolicitarServico from "./pages/SolicitarServico";
 import Infor from "./pages/Infor";
 import ScrollToTop from './components/ScrollToTop';
 import ArmamentosNaval from './pages/ArmamentosNaval';
+import Home from 'pages/home';
 
 const basename = process.env.NODE_ENV === "production" ? process.env.PUBLIC_URL : "";
 
@@ -33,7 +34,8 @@ function App() {
         <Menu />
           <Container>
             <Routes>
-              <Route path="/" element={<ListaFrota />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/ListaFrota" element={<ListaFrota />} />
               <Route path="/solicita" element={<SolicitarServico />} />
               <Route path="/armamento" element={<ArmamentosNaval />} />
 

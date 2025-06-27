@@ -4,12 +4,13 @@ import { useState } from 'react'
 import { Card, Col, Container, ListGroup, ProgressBar, Row, Spinner } from 'react-bootstrap'
 import TreinamentoService from '../../services/academico/TreinamentoService'
 import { Alert, Chip } from '@mui/material'
-import { AiOutlineRollback, AiOutlinePlus } from 'react-icons/ai'
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import TrackChangesIcon from '@mui/icons-material/TrackChanges';
+import { AiOutlinePlus } from 'react-icons/ai'
 
 const TreinamentoLista = ({ loading }) => {
 
@@ -64,8 +65,14 @@ const TreinamentoLista = ({ loading }) => {
       <div className="bg-dark text-white text-center mb-3 py-2">
         <h1 id='inicio'><TrackChangesIcon sx={{ fontSize: 50 }} color="primary" />Lista De Navios nos Treinamentos</h1>
       </div>
-      <div className="text-center">
-        <Link className='btn btn-success mb-3 butao' to={'/treinamento/create'}><AiOutlinePlus /> Inserir</Link>
+      <div className="text-center mb-3">
+        <Link
+          to="/treinamento/create"
+          className="inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-medium px-4 py-2 rounded shadow transition duration-200"
+        >
+          <AiOutlinePlus size={18} />
+          Inserir
+        </Link>
       </div>
       {loading || loadingState ? (
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100vh", width: "100%" }}>
@@ -165,7 +172,7 @@ const TreinamentoLista = ({ loading }) => {
             }
           </Row>
           <div className='text-center mb-3'>
-            <Link to={-1} className='btn btn-danger'><AiOutlineRollback /> Voltar</Link>
+            <Link to={-1} className='btn btn-danger'><KeyboardBackspaceIcon /> Voltar</Link>
           </div>
         </Container>
       )}

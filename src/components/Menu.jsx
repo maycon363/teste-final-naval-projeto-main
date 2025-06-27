@@ -1,117 +1,114 @@
-import React, { useEffect, useState } from "react";
-import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Shield, Ship, Wrench, Users } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
-const Menu = () => {
+const NavBar = () => {
+  const [open, setOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const timeoutRef = useRef(null);
+
+  const outrosLinks = [
+    { to: "/armamento", label: "Armamentos" },
+    { to: "/infor", label: "Navios" },
+    { to: "/manutencao", label: "Manutenção" },
+    { to: "/armamentos", label: "Equipamentos Bélicos" },
+    { to: "/construcao", label: "Construção" },
+    { to: "/missao", label: "Missão" },
+    { to: "/treinamento", label: "Treinamento" },
+    { to: "/servico", label: "Serviço" },
+    { to: "/comandantes", label: "Comandantes" },
+  ];
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    handleResize(); 
-    window.addEventListener("resize", handleResize); // Atualiza ao redimensionar
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const handleMouseEnter = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    setShowDropdown(true);
+  };
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => setShowDropdown(false), 300);
+  };
+
+  const linkClass = "text-white no-underline hover:text-blue-400 transition duration-200";
+
   return (
-    <Navbar className="mb-3" bg="dark" variant="dark" expand="lg">
-      <Container>
-        <Navbar.Brand as={Link} to="/">
+    <header className="bg-black/80 backdrop-blur-md shadow-md sticky top-0 z-50 ">
+      <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between mb-2">
+        <Link to="/" className="flex items-center gap-3 text-white font-bold text-lg no-underline">
           <img
             src="https://logodownload.org/wp-content/uploads/2018/01/marinha-brasil-logo.png"
             alt="Logo"
-            height="30"
-            className="d-inline-block align-top me-2"
+            className="w-10 h-10 rounded"
           />
           Frota Naval Remake
-        </Navbar.Brand>
+        </Link>
 
         {isMobile ? (
-          <>
-            {/* --- MODO MOBILE --- */}
-            <Navbar.Toggle aria-controls="mobile-navbar" />
-            <Navbar.Collapse id="mobile-navbar">
-              <Nav className="me-auto">
-                <Nav.Link as={Link} to="/">
-                  <Shield size={16} className="me-1" /> Lista Geral
-                </Nav.Link>
-                <Nav.Link as={Link} to="/solicita">
-                  <Wrench size={16} className="me-1" /> Solicitação
-                </Nav.Link>         
-                <NavDropdown.Header>📌 Informações</NavDropdown.Header>
-                <NavDropdown.Divider className="divider"/>
-                <Nav.Link as={Link} to="/armamento">
-                  <Shield size={14} className="me-1" /> Armamentos
-                </Nav.Link>
-                <Nav.Link as={Link} to="/infor">
-                  <Ship size={14} className="me-1" /> Navios
-                </Nav.Link>             
-                <NavDropdown.Header>🛠️ Serviços</NavDropdown.Header>
-                <NavDropdown.Divider />
-                <Nav.Link as={Link} to="/manutencao">
-                  <Wrench size={14} className="me-1" /> Manutenção
-                </Nav.Link>
-                <Nav.Link as={Link} to="/armamentos">🛡️ Equipamentos Bélicos</Nav.Link>
-                <Nav.Link as={Link} to="/construcao">🏗️ Construção</Nav.Link>
-                <Nav.Link as={Link} to="/missao">🚀 Missão</Nav.Link>
-                <Nav.Link as={Link} to="/treinamento">🎯 Treinamento</Nav.Link>
-                <Nav.Link as={Link} to="/servico">📋 Serviço</Nav.Link>
-                <Nav.Link as={Link} to="/comandantes">
-                  <Users size={14} className="me-1" /> Comandantes
-                </Nav.Link>
-              </Nav>
-            </Navbar.Collapse>
-          </>
+          <button onClick={() => setOpen(!open)} className="text-white" aria-label="Menu">
+            {open ? <X size={28} /> : <Menu size={28} />}
+          </button>
         ) : (
-          <>
-            {/* --- MODO WEB --- */}
-            <Nav className="me-auto">
-              <Nav.Link as={Link} to="/">
-                <Shield size={16} className="me-1" /> Lista Geral
-              </Nav.Link>
+          <nav className="flex gap-6 text-sm font-medium items-center ">
+            <Link to="/" className={linkClass}>Tela Inicial</Link>
+            <Link to="/ListaFrota" className={linkClass}>Lista Geral</Link>
+            <Link to="/solicita" className={linkClass}>Solicitação</Link>
 
-              <Nav.Link as={Link} to="/solicita">
-                <Wrench size={16} className="me-1" /> Solicitação de Serviços
-              </Nav.Link>
-
-              <NavDropdown title="Outros" id="web-dropdown">
-                <NavDropdown.Header>📌 Informações</NavDropdown.Header>
-                <NavDropdown.Divider />
-                <NavDropdown.Item as={Link} to="/armamento">
-                  <Shield size={14} className="me-1" /> Armamentos
-                </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/infor">
-                  <Ship size={14} className="me-1" /> Navios
-                </NavDropdown.Item>
-
-                <NavDropdown.Divider />
-                <NavDropdown.Header>🛠️ Serviços</NavDropdown.Header>
-                <NavDropdown.Item as={Link} to="/armamentos">
-                  <Shield size={14} className="me-1" /> Armamentos
-                </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/manutencao">
-                  <Wrench size={14} className="me-1" /> Manutenção
-                </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/armamentos">🛡️ Equipamentos Bélicos</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/construcao">🏗️ Construção</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/missao">🚀 Missão</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/treinamento">🎯 Treinamento</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/servico">📋 Serviço</NavDropdown.Item>
-
-                <NavDropdown.Divider />
-                <NavDropdown.Header>⚓ Administração</NavDropdown.Header>
-                <NavDropdown.Item as={Link} to="/comandantes">
-                  <Users size={14} className="me-1" /> Comandantes
-                </NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-          </>
+            <div
+              className="relative inline-block"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <span className="cursor-pointer text-white hover:text-blue-400">▾ Outros</span>
+              {showDropdown && (
+                <div
+                  className="absolute right-0 mt-2 flex flex-col bg-black border border-gray-700 rounded p-2 z-50 w-56 shadow-lg"
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  {outrosLinks.map((link) => (
+                    <Link
+                      key={link.to}
+                      to={link.to}
+                      className="py-1 px-3 hover:bg-slate-800 rounded text-white no-underline"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          </nav>
         )}
-      </Container>
-    </Navbar>
+      </div>
+
+      {isMobile && open && (
+        <div className="w-full bg-black text-white px-4 py-4 flex flex-col gap-3 max-h-[calc(100vh-64px)] overflow-y-auto mb-2">
+          <Link to="/" className={linkClass} onClick={() => setOpen(false)}>Tela Inicial</Link>
+          <Link to="/ListaFrota" className={linkClass} onClick={() => setOpen(false)}>Lista Geral</Link>
+          <Link to="/solicita" className={linkClass} onClick={() => setOpen(false)}>Solicitação</Link>
+          <hr className="border-gray-600 my-2" />
+          <span className="text-gray-300 text-sm font-semibold">Outros</span>
+          {outrosLinks.map((link) => (
+            <Link
+              key={link.to}
+              to={link.to}
+              className={linkClass}
+              onClick={() => setOpen(false)}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </header>
   );
 };
 
-export default Menu;
+export default NavBar;

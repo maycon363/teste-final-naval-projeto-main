@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react';
 import { Spinner, Container, Row, Col, Card, ListGroup, ProgressBar } from 'react-bootstrap';
-import { AiOutlineRollback } from 'react-icons/ai';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import ComandatesService from '../../services/academico/ComandatesService';
@@ -143,7 +143,7 @@ const ComandantesLista = ({ loading }) => {
                             icon={<EditRoundedIcon />}
                             label="Editar"
                             style={{
-                              backgroundColor: '#0d6efd',
+                              backgroundColor: '#198754',
                               color: '#fff',
                             }}
                           />
@@ -165,11 +165,11 @@ const ComandantesLista = ({ loading }) => {
             }
           </Row>
           <div className='text-center mb-3'>
-            <Link to={-1} className='btn btn-danger'><AiOutlineRollback /> Voltar</Link>
+            <Link to={-1} className='btn btn-danger'><KeyboardBackspaceIcon /> Voltar</Link>
           </div>
         </Container>
       )}
     </div>
   );
-}; 
+};
 export default ComandantesLista
