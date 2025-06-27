@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/teste-final-naval-projeto-main/static/css/main.ad65101f.css",
-    "main.js": "/teste-final-naval-projeto-main/static/js/main.b1cbcf79.js",
+    "main.css": "/teste-final-naval-projeto-main/static/css/main.674429e1.css",
+    "main.js": "/teste-final-naval-projeto-main/static/js/main.96a85a95.js",
     "reactPlayerPreview.js": "/teste-final-naval-projeto-main/static/js/reactPlayerPreview.6b265042.chunk.js",
     "reactPlayerSoundCloud.js": "/teste-final-naval-projeto-main/static/js/reactPlayerSoundCloud.63f5bd15.chunk.js",
     "reactPlayerVimeo.js": "/teste-final-naval-projeto-main/static/js/reactPlayerVimeo.1d0107fd.chunk.js",
@@ -17,8 +17,8 @@
     "reactPlayerFilePlayer.js": "/teste-final-naval-projeto-main/static/js/reactPlayerFilePlayer.4ae1083c.chunk.js",
     "static/js/488.12f87c36.chunk.js": "/teste-final-naval-projeto-main/static/js/488.12f87c36.chunk.js",
     "index.html": "/teste-final-naval-projeto-main/index.html",
-    "main.ad65101f.css.map": "/teste-final-naval-projeto-main/static/css/main.ad65101f.css.map",
-    "main.b1cbcf79.js.map": "/teste-final-naval-projeto-main/static/js/main.b1cbcf79.js.map",
+    "main.674429e1.css.map": "/teste-final-naval-projeto-main/static/css/main.674429e1.css.map",
+    "main.96a85a95.js.map": "/teste-final-naval-projeto-main/static/js/main.96a85a95.js.map",
     "reactPlayerPreview.6b265042.chunk.js.map": "/teste-final-naval-projeto-main/static/js/reactPlayerPreview.6b265042.chunk.js.map",
     "reactPlayerSoundCloud.63f5bd15.chunk.js.map": "/teste-final-naval-projeto-main/static/js/reactPlayerSoundCloud.63f5bd15.chunk.js.map",
     "reactPlayerVimeo.1d0107fd.chunk.js.map": "/teste-final-naval-projeto-main/static/js/reactPlayerVimeo.1d0107fd.chunk.js.map",
@@ -35,7 +35,7 @@
     "488.12f87c36.chunk.js.map": "/teste-final-naval-projeto-main/static/js/488.12f87c36.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ad65101f.css",
-    "static/js/main.b1cbcf79.js"
+    "static/css/main.674429e1.css",
+    "static/js/main.96a85a95.js"
   ]
 }
