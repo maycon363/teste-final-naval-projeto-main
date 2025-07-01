@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { Button, Form, InputGroup, Spinner } from 'react-bootstrap';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FaCheck } from 'react-icons/fa';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ReactPlayer from 'react-player/youtube';
 import { useForm } from 'react-hook-form';
-import ReactPlayer from 'react-player';
 import construcaoValidator from '../../validators/construcaoValidator';
 import ConstrucaoService from '../../services/academico/ConstrucaoService';
 import { mask } from 'remask';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import LoadingNaval from '../../components/LoadingNaval';
 
 const Construcao = () => {
   const params = useParams();
   const navigate = useNavigate();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (params.id) {
@@ -29,41 +29,61 @@ const Construcao = () => {
   function salvar(dados) {
     setIsSubmitting(true);
     setTimeout(() => {
-      if (params.id) {
-        ConstrucaoService.update(params.id, dados);
-      } else {
-        ConstrucaoService.create(dados);
-      }
+      params.id
+        ? ConstrucaoService.update(params.id, dados)
+        : ConstrucaoService.create(dados);
       setIsSubmitting(false);
       navigate('/construcao');
-    }, 800);
+    }, 1000);
   }
 
   function handleChange(event) {
     const mascara = event.target.getAttribute('mask');
     setValue(event.target.name, mask(event.target.value, mascara));
   }
+  if (isSubmitting) {
+    return <LoadingNaval />;
+  }
 
   return (
-    <div>
-      <div className='para mb-3'>
-        <ReactPlayer playing={true} loop={true} controls={false} url='https://youtu.be/Mm7_Abtj8-c' />
+    <div className="bg-slate-900 text-white min-h-screen px-4 py-6 mb-2">
+      {/* Vídeo introdutório */}
+      <div className="max-w-4xl mx-auto mb-6 rounded overflow-hidden shadow-lg border border-slate-700">
+        <ReactPlayer
+          playing
+          loop
+          controls={false}
+          width="100%"
+          height="360px"
+          url="https://youtu.be/Mm7_Abtj8-c"
+        />
       </div>
-      <Form className="mb-3" style={{ background: '#1C1C1C', color: 'white', padding: '12px' }}>
-        <div className="text-center">
-          <h1><ShoppingCartIcon sx={{ fontSize: 60 }} color="primary" /> Inserir Navio para Construção</h1>
-        </div>
 
-        <Form.Group className="mb-3" controlId="imges">
-          <Form.Select aria-label="Default select example" {...register("imges", construcaoValidator.imgs)}>
+      {/* Título */}
+      <div className="text-center mb-5">
+        <h1 className="text-3xl md:text-4xl font-bold flex justify-center items-center gap-3 text-blue-400">
+          <ShoppingCartIcon sx={{ fontSize: 40 }} />
+          Inserir Navio para Construção
+        </h1>
+        <p className="text-gray-400 mt-2">Preencha os dados abaixo para cadastrar ou atualizar um navio em construção.</p>
+      </div>
+
+      {/* Formulário */}
+      <Form
+        onSubmit={handleSubmit(salvar)}
+        className="bg-slate-800 max-w-2xl mx-auto p-6 rounded-xl shadow-lg border border-slate-600 space-y-4"
+      >
+        <Form.Group controlId="imges">
+          <Form.Label>Tipo de Navio</Form.Label>
+          <Form.Select {...register("imges", construcaoValidator.imgs)}>
             <option>Selecione o tipo de Navio</option>
             <option value={"28"}>Cruzador</option>
             <option value={"27"}>Porta-Aviões</option>
-            <option value={"26"}>Porta-helicopteros</option>
+            <option value={"26"}>Porta-helicópteros</option>
             <option value={"25"}>Destroyer</option>
             <option value={"24"}>Submarino</option>
             <option value={"23"}>Fragata</option>
-            <option value={"22"}>Coverta</option>
+            <option value={"22"}>Corveta</option>
             <option value={"21"}>Navio Patrulha</option>
             <option value={"20"}>Navio-tanque</option>
             <option value={"19"}>Navio Autônomo de Guerra</option>
@@ -71,108 +91,111 @@ const Construcao = () => {
           </Form.Select>
         </Form.Group>
 
-        <InputGroup className="mb-3" controlId="nome">
+        <Form.Group controlId="nome">
+          <Form.Label>Nome do Navio</Form.Label>
           <Form.Control
-            isInvalid={errors.nome}
+            type="text"
             {...register("nome", construcaoValidator.nome)}
-            placeholder="Informe o Nome do Navio"
-            type="text"
+            isInvalid={errors.nome}
+            placeholder="Ex: Encouraçado Bahia"
           />
-        </InputGroup>
+          <Form.Control.Feedback type="invalid">{errors.nome?.message}</Form.Control.Feedback>
+        </Form.Group>
 
-        <InputGroup className="mb-3" controlId="radar">
+        <Form.Group controlId="radar">
+          <Form.Label>Radar do Navio</Form.Label>
           <Form.Control
-            isInvalid={errors.radar}
+            type="text"
             {...register("radar", construcaoValidator.radar)}
-            placeholder="Informe o Radar do Navio"
-            type="text"
+            isInvalid={errors.radar}
+            placeholder="Radar instalado"
           />
-        </InputGroup>
-        {errors.radar && <p style={{ color: "OrangeRed" }}>{errors.radar.message}</p>}
+          <Form.Control.Feedback type="invalid">{errors.radar?.message}</Form.Control.Feedback>
+        </Form.Group>
 
-        <InputGroup className="mb-3" controlId="siste">
+        <Form.Group controlId="siste">
+          <Form.Label>Sistema de Defesa</Form.Label>
           <Form.Control
-            isInvalid={errors.siste}
+            type="text"
             {...register("siste", construcaoValidator.siste)}
-            placeholder="Informe Sistema de defesa do Navio"
+            isInvalid={errors.siste}
+            placeholder="Sistema antimísseis, etc."
+          />
+          <Form.Control.Feedback type="invalid">{errors.siste?.message}</Form.Control.Feedback>
+        </Form.Group>
+
+        <Form.Group controlId="carac">
+          <Form.Label>Características</Form.Label>
+          <Form.Control
             type="text"
-          />
-        </InputGroup>
-        {errors.siste && <p style={{ color: "OrangeRed" }}>{errors.siste.message}</p>}
-
-        <InputGroup className="mb-3" controlId="carac">
-          <Form.Control
-            isInvalid={errors.carac}
             {...register("carac", construcaoValidator.carac)}
-            placeholder="Informe características do Navio"
+            isInvalid={errors.carac}
+            placeholder="Informe as características principais"
           />
-        </InputGroup>
+          <Form.Control.Feedback type="invalid">{errors.carac?.message}</Form.Control.Feedback>
+        </Form.Group>
 
-        <InputGroup className="mb-3" controlId="data">
+        <Form.Group controlId="data">
+          <Form.Label>Data Limite da Entrega</Form.Label>
           <Form.Control
-            isInvalid={errors.data}
+            type="text"
             {...register("data", construcaoValidator.data)}
-            placeholder="Informe Data limite da entrega"
+            isInvalid={errors.data}
+            placeholder="dd/mm/aaaa"
             mask="99/99/9999"
             onChange={handleChange}
           />
-        </InputGroup>
-        {errors.data && <p style={{ color: "OrangeRed" }}>{errors.data.message}</p>}
+          <Form.Control.Feedback type="invalid">{errors.data?.message}</Form.Control.Feedback>
+        </Form.Group>
 
-        <InputGroup className="mb-3" controlId="custo">
-          <InputGroup.Text>$</InputGroup.Text>
-          <Form.Control
-            isInvalid={errors.custo}
-            {...register("custo", construcaoValidator.custo)}
-            placeholder="Informe o valor do Investimento"
-            type="value"
-          />
-        </InputGroup>
-        {errors.custo && <p style={{ color: "OrangeRed" }}>{errors.custo.message}</p>}
+        <Form.Group controlId="custo">
+          <Form.Label>Investimento</Form.Label>
+          <InputGroup>
+            <InputGroup.Text>$</InputGroup.Text>
+            <Form.Control
+              type="text"
+              {...register("custo", construcaoValidator.custo)}
+              isInvalid={errors.custo}
+              placeholder="Ex: 2.000.000"
+            />
+            <Form.Control.Feedback type="invalid">{errors.custo?.message}</Form.Control.Feedback>
+          </InputGroup>
+        </Form.Group>
 
-        <div className="text-center mb-4">
+        {/* Botão */}
+        <div className="text-center">
           <button
-            onClick={handleSubmit(salvar)}
+            type="submit"
             disabled={isSubmitting}
-            className={`inline-flex items-center justify-center gap-2 px-6 py-2 text-white text-lg font-medium rounded transition duration-200 ${isSubmitting
-                ? "bg-green-400 cursor-not-allowed opacity-70"
-                : "bg-green-600 hover:bg-green-700"
+            className={`inline-flex items-center justify-center gap-2 px-6 py-3 text-white font-semibold rounded-lg transition-all duration-300 ${isSubmitting
+              ? "bg-green-400 cursor-not-allowed opacity-70"
+              : "bg-green-600 hover:bg-green-700"
               }`}
           >
             {isSubmitting ? (
-              <svg
-                className="animate-spin h-5 w-5 text-white"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                />
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8v8H4z"
-                />
-              </svg>
+              <>
+                <Spinner animation="border" size="sm" />
+                Salvando...
+              </>
             ) : (
-              <FaCheck size={18} />
+              <>
+                <FaCheck />
+                Salvar
+              </>
             )}
-            <span>{isSubmitting ? "Salvando..." : "Salvar"}</span>
           </button>
         </div>
       </Form>
 
-      <div className="text-center mb-5">
-        <Link to={-1} className='btn btn-danger butao'><KeyboardBackspaceIcon />  Voltar</Link>
+      {/* Botão Voltar */}
+      <div className="text-center mt-8">
+        <Link to={-1} className="inline-flex items-center gap-2 text-sm text-white px-4 py-2 bg-red-600 hover:bg-red-700 rounded-md">
+          <KeyboardBackspaceIcon fontSize="small" />
+          Voltar
+        </Link>
       </div>
     </div>
   );
-}
+};
 
 export default Construcao;

@@ -1,21 +1,23 @@
-import React from 'react'
-import { useEffect } from 'react'
-import { useState } from 'react'
-import { Card, Col, Container, ListGroup, ProgressBar, Row, Spinner } from 'react-bootstrap'
-import TreinamentoService from '../../services/academico/TreinamentoService'
-import { Alert, Chip } from '@mui/material'
+import React from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { Card, Col, Container, ListGroup, ProgressBar, Row, Spinner } from 'react-bootstrap';
+import TreinamentoService from '../../services/academico/TreinamentoService';
+import { Alert, Chip } from '@mui/material';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import { Link } from 'react-router-dom'
-import Swal from 'sweetalert2'
+import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import TrackChangesIcon from '@mui/icons-material/TrackChanges';
-import { AiOutlinePlus } from 'react-icons/ai'
+import { AiOutlinePlus } from 'react-icons/ai';
+import LoadingNaval from '../../components/LoadingNaval';
 
 const TreinamentoLista = ({ loading }) => {
 
   const [treinamento, setTreinamento] = useState([])
   const [loadingState, setLoadingState] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
 
@@ -60,6 +62,10 @@ const TreinamentoLista = ({ loading }) => {
     }
   }
 
+  if (isSubmitting) {
+    return <LoadingNaval />;
+  }
+
   return (
     <div>
       <div className="bg-dark text-white text-center mb-3 py-2">
@@ -75,12 +81,7 @@ const TreinamentoLista = ({ loading }) => {
         </Link>
       </div>
       {loading || loadingState ? (
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100vh", width: "100%" }}>
-          <h1>
-            <Spinner animation="grow" variant="warning" /> Carregando...
-          </h1>
-          <ProgressBar striped variant="warning" animated now={100} style={{ width: "50%", marginTop: "15px" }} />
-        </div>
+        <LoadingNaval />
       ) : treinamento.length === 0 ? (
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100vh", width: "100%" }}>
           <h3>Nenhum registro encontrado.</h3>

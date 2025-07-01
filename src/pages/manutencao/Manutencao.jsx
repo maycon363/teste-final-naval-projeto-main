@@ -9,6 +9,7 @@ import ReactPlayer from 'react-player/youtube';
 import { useForm } from 'react-hook-form';
 import { mask } from 'remask';
 import EngineeringIcon from '@mui/icons-material/Engineering';
+import LoadingNaval from '../../components/LoadingNaval';
 
 const Manutencao = () => {
   const params = useParams();
@@ -42,8 +43,12 @@ const Manutencao = () => {
     setValue(event.target.name, mask(event.target.value, mascara));
   }
 
+  if (isSubmitting) {
+    return <LoadingNaval />;
+  }
+
   return (
-    <div className="bg-slate-900 text-white min-h-screen px-4 py-6">
+    <div className="bg-slate-900 text-white min-h-screen px-4 py-6 mb-2">
       {/* Vídeo de introdução */}
       <div className="max-w-4xl mx-auto mb-6 rounded overflow-hidden shadow-lg border border-slate-700">
         <ReactPlayer
@@ -57,7 +62,7 @@ const Manutencao = () => {
       </div>
 
       {/* Título */}
-      <div className="text-center mb-8">
+      <div className="text-center mb-5">
         <h1 className="text-3xl md:text-4xl font-bold flex justify-center items-center gap-3 text-blue-400">
           <EngineeringIcon sx={{ fontSize: 40 }} />
           Inserir Navio para Manutenção

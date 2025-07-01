@@ -1,6 +1,5 @@
-// ListaFrota.jsx
 import React from 'react';
-import { Alert, Card, Spinner, Table, Button } from 'react-bootstrap';
+import { Spinner, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { AiOutlinePlus } from 'react-icons/ai';
 import ConstrucaoService from '../services/academico/ConstrucaoService';
@@ -25,8 +24,8 @@ const ListaFrota = () => {
   return (
     <div className="bg-slate-900 text-white py-4 px-2 min-h-screen mb-2">
       <div className="text-center mb-6">
-        <h1 className="text-3xl font-bold flex items-center justify-center gap-2">
-          <GiShipBow className="text-blue-400" size={32} />
+        <h1 className="flex items-center justify-center gap-2 text-xl md:text-3xl font-bold whitespace-nowrap">
+          <GiShipBow className="text-blue-400 shrink-0" size={28} />
           Lista Geral dos Navios
         </h1>
         <p className="text-gray-400 mt-1">Visão completa de todas as frotas em operação, manutenção, missão e mais.</p>
@@ -90,11 +89,11 @@ const ListaFrota = () => {
 const Section = ({ title, icon, link, data, columns, showStatusSpinner = false, growSpinner = false }) => (
   <div className="mb-12">
     <div className="text-center mb-4">
-      <h2 className="text-2xl font-semibold flex items-center justify-center gap-2">
-        {React.cloneElement(icon, { size: 24, className: 'text-blue-400' })}
+      <h2 className="flex items-center justify-center gap-2 text-xl md:text-2xl font-semibold whitespace-nowrap">
+        {React.cloneElement(icon, { size: 24, className: 'text-blue-400 shrink-0' })}
         {title}
       </h2>
-      <Link to={link} className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full font-medium shadow">
+      <Link to={link} className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full font-medium shadow mt-2">
         <AiOutlinePlus /> Inserir
       </Link>
     </div>
@@ -128,10 +127,10 @@ const Section = ({ title, icon, link, data, columns, showStatusSpinner = false, 
 const SectionServico = ({ data }) => (
   <div className="mb-16">
     <div className="text-center mb-4">
-      <h2 className="text-2xl font-semibold flex items-center justify-center gap-2">
-        <RiShip2Fill size={24} className="text-green-400" /> Navios em Serviço
+      <h2 className="flex items-center justify-center gap-2 text-xl md:text-2xl font-semibold whitespace-nowrap">
+        <RiShip2Fill size={24} className="text-green-400 shrink-0" /> Navios em Serviço
       </h2>
-      <Link to="/servico/create" className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full font-medium shadow">
+      <Link to="/servico/create" className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full font-medium shadow mt-2">
         <AiOutlinePlus /> Inserir
       </Link>
     </div>

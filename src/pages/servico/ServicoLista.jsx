@@ -10,11 +10,13 @@ import AddModeratorIcon from '@mui/icons-material/AddModerator';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import SecurityIcon from '@mui/icons-material/Security';
 import imageMap from '../../services/config/imageConfig';
+import LoadingNaval from '../../components/LoadingNaval';
 
 const ServicoLista = ({ loading }) => {
 
   const [servico, setServico] = useState([])
   const [loadingState, setLoadingState] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
 
@@ -59,6 +61,9 @@ const ServicoLista = ({ loading }) => {
     }
   }
 
+  if (isSubmitting) {
+    return <LoadingNaval />;
+  }
 
   return (
     <div>
@@ -69,12 +74,7 @@ const ServicoLista = ({ loading }) => {
         <Link className='btn btn-success mb-3 butao' to={'/servico/create'}><AddModeratorIcon /> Inserir</Link>
       </div>
       {loading || loadingState ? (
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100vh", width: "100%" }}>
-          <h1>
-            <Spinner animation="grow" variant="warning" /> Carregando...
-          </h1>
-          <ProgressBar striped variant="warning" animated now={100} style={{ width: "50%", marginTop: "15px" }} />
-        </div>
+        <LoadingNaval />
       ) : servico.length === 0 ? (
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100vh", width: "100%" }}>
           <h3>Nenhum registro encontrado.</h3>

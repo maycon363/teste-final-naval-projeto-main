@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Form, InputGroup, Spinner } from 'react-bootstrap';
+import { Form, Spinner } from 'react-bootstrap';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FaCheck } from 'react-icons/fa';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { useForm } from 'react-hook-form';
-import ReactPlayer from 'react-player';
+import ReactPlayer from 'react-player/youtube';
 import servicoValidator from '../../validators/servicoValidator';
 import ServicoService from '../../services/academico/ServicoService';
 import { mask } from 'remask';
 import ComandatesService from '../../services/academico/ComandatesService';
 import SecurityIcon from '@mui/icons-material/Security';
+import LoadingNaval from '../../components/LoadingNaval';
 
 const Servico = () => {
   const params = useParams();
@@ -26,16 +27,12 @@ const Servico = () => {
         setValue(campo, servi[campo]);
       }
     }
-  }, []);
+  }, [params.id, setValue]);
 
   function salvar(dados) {
     setIsSubmitting(true);
     setTimeout(() => {
-      if (params.id) {
-        ServicoService.update(params.id, dados);
-      } else {
-        ServicoService.create(dados);
-      }
+      params.id ? ServicoService.update(params.id, dados) : ServicoService.create(dados);
       setIsSubmitting(false);
       navigate("/servico");
     }, 1000);
@@ -46,21 +43,42 @@ const Servico = () => {
     setValue(event.target.name, mask(event.target.value, mascara));
   }
 
+  if (isSubmitting) {
+    return <LoadingNaval />;
+  }
+
   return (
-    <div>
-      <div className='para mb-3'>
-        <ReactPlayer playing loop controls={false} url='https://www.youtube.com/watch?v=77H-dL2EYzk' />
+    <div className="bg-slate-900 text-white min-h-screen px-4 py-6 mb-2">
+      {/* Player de vídeo */}
+      <div className="max-w-4xl mx-auto mb-6 rounded overflow-hidden shadow-lg border border-slate-700">
+        <ReactPlayer
+          playing
+          loop
+          controls={false}
+          width="100%"
+          height="360px"
+          url="https://www.youtube.com/watch?v=77H-dL2EYzk"
+        />
       </div>
 
-      <Form className="mb-3" style={{ background: '#1C1C1C', color: 'white', padding: "12px" }}>
-        <div className="text-center mb-4">
-          <h1><SecurityIcon sx={{ fontSize: 50 }} color="primary" /> Inserir Navio para Serviço</h1>
-        </div>
+      {/* Título */}
+      <div className="text-center mb-5">
+        <h1 className="text-3xl md:text-4xl font-bold flex justify-center items-center gap-3 text-blue-400">
+          <SecurityIcon sx={{ fontSize: 40 }} />
+          Inserir Navio para Serviço
+        </h1>
+        <p className="text-gray-400 mt-2">Preencha os dados abaixo</p>
+      </div>
 
-        <Form.Group className="mb-3" controlId="imgs">
+      {/* Formulário */}
+      <Form
+        onSubmit={handleSubmit(salvar)}
+        className="bg-slate-800 max-w-2xl mx-auto p-6 rounded-xl shadow-lg border border-slate-600 space-y-4"
+      >
+        <Form.Group controlId="imges">
           <Form.Label>Classe do Navio</Form.Label>
           <Form.Select {...register("imges", servicoValidator.imges)} isInvalid={errors.imges}>
-            <option>Selecione a Classe do navio</option>
+            <option value="">Selecione a Classe do navio</option>
             <option value="28">Cruzador</option>
             <option value="27">Porta-Aviões</option>
             <option value="26">Porta-helicópteros</option>
@@ -76,30 +94,30 @@ const Servico = () => {
           <Form.Control.Feedback type="invalid">{errors.imges?.message}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="nome">
+        <Form.Group controlId="nome">
           <Form.Label>Tipo da Classe do Navio</Form.Label>
           <Form.Control
-            isInvalid={errors.nome}
             {...register("nome", servicoValidator.nome)}
             placeholder="Informe o tipo da classe do navio"
+            isInvalid={errors.nome}
           />
           <Form.Control.Feedback type="invalid">{errors.nome?.message}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="missao">
+        <Form.Group controlId="missao">
           <Form.Label>Tipo de Serviço</Form.Label>
           <Form.Control
-            isInvalid={errors.missao}
             {...register("missao", servicoValidator.missao)}
             placeholder="Informe o tipo de serviço"
+            isInvalid={errors.missao}
           />
           <Form.Control.Feedback type="invalid">{errors.missao?.message}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="guerra">
+        <Form.Group controlId="guerra">
           <Form.Label>Comandante</Form.Label>
           <Form.Select {...register("guerra", servicoValidator.guerra)} isInvalid={errors.guerra}>
-            <option>Informe o nome do Comandante</option>
+            <option value="">Informe o nome do Comandante</option>
             {comandante.map((item, i) => (
               <option key={i} value={item.guerra}>{item.guerra}</option>
             ))}
@@ -107,19 +125,19 @@ const Servico = () => {
           <Form.Control.Feedback type="invalid">{errors.guerra?.message}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="data">
+        <Form.Group controlId="data">
           <Form.Label>Data do Serviço</Form.Label>
           <Form.Control
-            isInvalid={errors.data}
             {...register("data", servicoValidator.data)}
             placeholder="Informe a data do serviço"
+            isInvalid={errors.data}
             mask="99/99/9999"
             onChange={handleChange}
           />
           <Form.Control.Feedback type="invalid">{errors.data?.message}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-4" controlId="situacao">
+        <Form.Group controlId="situacao">
           <Form.Label>Situação</Form.Label>
           <Form.Select {...register("situacao", servicoValidator.situacao)} isInvalid={errors.situacao}>
             <option value="">Informe a situação</option>
@@ -129,43 +147,24 @@ const Servico = () => {
           <Form.Control.Feedback type="invalid">{errors.situacao?.message}</Form.Control.Feedback>
         </Form.Group>
 
-        <div className="text-center mb-4">
+        {/* Botão de salvar */}
+        <div className="text-center">
           <button
-            onClick={handleSubmit(salvar)}
+            type="submit"
             disabled={isSubmitting}
-            type="button"
-            className={`inline-flex items-center justify-center gap-2 px-6 py-2 text-white text-lg font-medium rounded transition duration-200 ${isSubmitting
-                ? "bg-green-400 cursor-not-allowed opacity-70"
-                : "bg-green-600 hover:bg-green-700"
+            className={`inline-flex items-center justify-center gap-2 px-6 py-3 text-white font-semibold rounded-lg transition-all duration-300 ${isSubmitting
+              ? "bg-green-400 cursor-not-allowed opacity-70"
+              : "bg-green-600 hover:bg-green-700"
               }`}
           >
             {isSubmitting ? (
               <>
-                <svg
-                  className="animate-spin h-5 w-5 text-white"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  />
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8v8H4z"
-                  />
-                </svg>
+                <Spinner animation="border" size="sm" />
                 Salvando...
               </>
             ) : (
               <>
-                <FaCheck size={18} />
+                <FaCheck />
                 Salvar
               </>
             )}
@@ -173,8 +172,12 @@ const Servico = () => {
         </div>
       </Form>
 
-      <div className="text-center mb-3">
-        <Link to={-1} className="btn btn-danger"><KeyboardBackspaceIcon /> Voltar</Link>
+      {/* Botão de voltar */}
+      <div className="text-center mt-6">
+        <Link to={-1} className="inline-flex items-center gap-2 text-sm text-white px-4 py-2 bg-red-600 hover:bg-red-700 rounded-md">
+          <KeyboardBackspaceIcon />
+          Voltar
+        </Link>
       </div>
     </div>
   );

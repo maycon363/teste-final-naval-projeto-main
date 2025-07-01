@@ -11,11 +11,13 @@ import Swal from 'sweetalert2';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import EngineeringIcon from '@mui/icons-material/Engineering';
+import LoadingNaval from '../../components/LoadingNaval';
 
 const ManutencaoLista = ({ loading }) => {
 
   const [manutencao, seManutencao] = useState([])
   const [loadingState, setLoadingState] = useState(true)
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
 
@@ -60,6 +62,9 @@ const ManutencaoLista = ({ loading }) => {
     }
   }
 
+  if (isSubmitting) {
+    return <LoadingNaval />;
+  }
 
   return (
     <div>
@@ -76,12 +81,7 @@ const ManutencaoLista = ({ loading }) => {
         </Link>
       </div>
       {loading || loadingState ? (
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100vh", width: "100%" }}>
-          <h1>
-            <Spinner animation="grow" variant="warning" /> Carregando...
-          </h1>
-          <ProgressBar striped variant="warning" animated now={100} style={{ width: "50%", marginTop: "15px" }} />
-        </div>
+        <LoadingNaval />
       ) : manutencao.length === 0 ? (
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100vh", width: "100%" }}>
           <h3>Nenhum registro encontrado.</h3>

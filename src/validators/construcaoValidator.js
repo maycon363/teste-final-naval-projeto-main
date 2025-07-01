@@ -70,7 +70,7 @@ const construcaoValidator = {
         },
     },
     custo: {
-        required: "O campo Custo é Obrigatório",
+        required: "O campo Investimento é Obrigatório",
         minLength: {
             value: 6,
             message: "Qtd mínima de caracteres não informado"

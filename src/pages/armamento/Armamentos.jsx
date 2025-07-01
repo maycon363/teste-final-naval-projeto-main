@@ -1,173 +1,183 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { Button, Form, InputGroup, Spinner } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import ReactPlayer from 'react-player';
-import { FaCheck } from 'react-icons/fa'
+import ReactPlayer from 'react-player/youtube';
+import { FaCheck } from 'react-icons/fa';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { mask } from 'remask';
 import ArmamentosService from '../../services/academico/ArmamentosService';
 import armamentoValidator from '../../validators/armamentoValidator';
 import PaidIcon from '@mui/icons-material/Paid';
+import LoadingNaval from '../../components/LoadingNaval';
 
 const Armamentos = () => {
-
-    const params = useParams()
-    const navigate = useNavigate()
+    const params = useParams();
+    const navigate = useNavigate();
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
-
         if (params.id) {
-            const armamentos = ArmamentosService.get(params.id)
-
+            const armamentos = ArmamentosService.get(params.id);
             for (let campo in armamentos) {
-                setValue(campo, armamentos[campo])
+                setValue(campo, armamentos[campo]);
             }
         }
-    }, [])
-
-    function salvar(dados) {
-
-        if (params.id) {
-            ArmamentosService.update(params.id, dados)
-        } else {
-            ArmamentosService.create(dados)
-        }
-
-        navigate("/armamentos")
-    }
-
-    function handleChange(event) {
-        const mascara = event.target.getAttribute('mask')
-        setValue(event.target.name, mask(event.target.value, mascara))
-    }
+    }, []);
 
     function salvar(dados) {
         setIsSubmitting(true);
-        // simula processo (ex: API)
         setTimeout(() => {
-            if (params.id) {
-                ArmamentosService.update(params.id, dados);
-            } else {
-                ArmamentosService.create(dados);
-            }
+            params.id
+                ? ArmamentosService.update(params.id, dados)
+                : ArmamentosService.create(dados);
             setIsSubmitting(false);
             navigate("/armamentos");
-        }, 800);
+        }, 1000);
     }
+
+    function handleChange(event) {
+        const mascara = event.target.getAttribute('mask');
+        setValue(event.target.name, mask(event.target.value, mascara));
+    }
+    if (isSubmitting) {
+        return <LoadingNaval />;
+    }
+
     return (
-        <div>
-            <div className='para mb-3'>
-                <ReactPlayer playing={true} loop={true} controls={false} url='https://www.youtube.com/watch?v=Zsf38NYzo5Q' />
+        <div className="bg-slate-900 text-white min-h-screen px-4 py-6 mb-2">
+            {/* Vídeo introdutório */}
+            <div className="max-w-4xl mx-auto mb-6 rounded overflow-hidden shadow-lg border border-slate-700">
+                <ReactPlayer
+                    playing
+                    loop
+                    controls={false}
+                    width="100%"
+                    height="360px"
+                    url="https://www.youtube.com/watch?v=Zsf38NYzo5Q"
+                />
             </div>
-            <div>
-                <Form className="mb-3" style={{ background: '#1C1C1C', color: 'white', paddingTop: "8px", paddingLeft: "12px", paddingRight: "12px", paddingBottom: "10px" }}>
-                    <div className="text-center">
-                        <h1><PaidIcon sx={{ fontSize: 50 }} color="primary" />Inserir Equipamentos Bélicos</h1>
-                    </div>
-                    <Form.Group className="mb-3" controlId="ships">
-                        <Form.Select {...register("imges", armamentoValidator.imges)}>
-                            <option value={"erro"}>Selecione um armamento</option>
-                            <optgroup label="Canhões">
-                                <option value={"cp"}>Canhão Principal</option>
-                                <option value={"cs"}>Canhão Secundário</option>
-                            </optgroup>
-                            <optgroup label="Mísseis">
-                                <option value={"man"}>Anti-navio</option>
-                                <option value={"mae"}>Anti-aéreo</option>
-                            </optgroup>
-                            <optgroup label="Outros">
-                                <option value={"t"}>Torpedos</option>
-                                <option value={"m"}>Metralhadora .50</option>
-                                <option value={"ca"}>Arma anti-aérea</option>
-                                <option value={"da"}>Drone de Ataque</option>
-                                <option value={"lf"}>Lançador de Foguetes</option>
-                            </optgroup>
-                        </Form.Select>
-                    </Form.Group>
-                    <InputGroup className="mb-3">
-                        <Form.Control
-                            isInvalid={errors.nome}
-                            {...register("nome", armamentoValidator.nome)}
-                            placeholder="Informe Nome do Armamento"
-                            aria-label="Informe Nome do Armamento"
-                            aria-describedby="basic-addon2"
-                        />
-                    </InputGroup>
-                    {errors.nome && <p style={{ color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px" }}>{errors.nome.message}</p>}
-                    <InputGroup className="mb-3">
-                        <Form.Control
-                            isInvalid={errors.data}
-                            {...register("data", armamentoValidator.data)}
-                            placeholder="Informe Data limite da entrega"
-                            aria-label="Informe Data limite da entrega"
-                            mask="99/99/9999"
-                            onChange={handleChange}
-                        />
-                    </InputGroup>
-                    {errors.data && <p style={{ color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px" }}>{errors.data.message}</p>}
-                    <InputGroup className="mb-3" controlId="quantidade">
+
+            {/* Título */}
+            <div className="text-center mb-5">
+                <h1 className="text-3xl md:text-4xl font-bold flex justify-center items-center gap-3 text-blue-400">
+                    <PaidIcon sx={{ fontSize: 40 }} />
+                    Inserir Equipamentos Bélicos
+                </h1>
+                <p className="text-gray-400 mt-2">Cadastre ou atualize informações sobre armamentos de guerra.</p>
+            </div>
+
+            {/* Formulário */}
+            <Form
+                onSubmit={handleSubmit(salvar)}
+                className="bg-slate-800 max-w-2xl mx-auto p-6 rounded-xl shadow-lg border border-slate-600 space-y-4"
+            >
+                <Form.Group controlId="imges">
+                    <Form.Label>Tipo de Armamento</Form.Label>
+                    <Form.Select {...register("imges", armamentoValidator.imges)}>
+                        <option value={"erro"}>Selecione um armamento</option>
+                        <optgroup label="Canhões">
+                            <option value={"cp"}>Canhão Principal</option>
+                            <option value={"cs"}>Canhão Secundário</option>
+                        </optgroup>
+                        <optgroup label="Mísseis">
+                            <option value={"man"}>Anti-navio</option>
+                            <option value={"mae"}>Anti-aéreo</option>
+                        </optgroup>
+                        <optgroup label="Outros">
+                            <option value={"t"}>Torpedos</option>
+                            <option value={"m"}>Metralhadora .50</option>
+                            <option value={"ca"}>Arma anti-aérea</option>
+                            <option value={"da"}>Drone de Ataque</option>
+                            <option value={"lf"}>Lançador de Foguetes</option>
+                        </optgroup>
+                    </Form.Select>
+                </Form.Group>
+
+                <Form.Group controlId="nome">
+                    <Form.Label>Nome do Armamento</Form.Label>
+                    <Form.Control
+                        type="text"
+                        {...register("nome", armamentoValidator.nome)}
+                        isInvalid={errors.nome}
+                        placeholder="Ex: Míssil Exocet"
+                    />
+                    <Form.Control.Feedback type="invalid">{errors.nome?.message}</Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group controlId="data">
+                    <Form.Label>Data Limite da Entrega</Form.Label>
+                    <Form.Control
+                        type="text"
+                        {...register("data", armamentoValidator.data)}
+                        isInvalid={errors.data}
+                        placeholder="dd/mm/aaaa"
+                        mask="99/99/9999"
+                        onChange={handleChange}
+                    />
+                    <Form.Control.Feedback type="invalid">{errors.data?.message}</Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group controlId="custo">
+                    <Form.Label>Investimento</Form.Label>
+                    <InputGroup>
                         <InputGroup.Text>$</InputGroup.Text>
                         <Form.Control
-                            isInvalid={errors.custo}
+                            type="text"
                             {...register("custo", armamentoValidator.custo)}
-                            placeholder="Informe o Investimento"
-                            aria-label="Informe o Investimento"
-                            type='valor'
+                            isInvalid={errors.custo}
+                            placeholder="Ex: 500.000"
                         />
+                        <Form.Control.Feedback type="invalid">{errors.custo?.message}</Form.Control.Feedback>
                     </InputGroup>
-                    {errors.custo && <p style={{ color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px" }}>{errors.custo.message}</p>}
-                    <InputGroup className="mb-3" controlId="quantidade">
-                        <Form.Control
-                            isInvalid={errors.quantidade}
-                            {...register("quantidade", armamentoValidator.quantidade)}
-                            placeholder="Informe a Quantidade"
-                            aria-label="Informe a Quantidade"
-                            type='number'
-                        />
-                    </InputGroup>
-                    {errors.quantidade && <p style={{ color: "OrangeRed", background: "Black", border: "15px", borderBlock: "10px" }}>{errors.quantidade.message}</p>}
-                    <div className="text-center mb-4">
-                        <button
-                            onClick={handleSubmit(salvar)}
-                            disabled={isSubmitting}
-                            className="inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded text-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed transition"
-                        >
-                            {isSubmitting ? (
-                                <svg
-                                    className="animate-spin h-5 w-5 text-white"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <circle
-                                        className="opacity-25"
-                                        cx="12"
-                                        cy="12"
-                                        r="10"
-                                        stroke="currentColor"
-                                        strokeWidth="4"
-                                    />
-                                    <path
-                                        className="opacity-75"
-                                        fill="currentColor"
-                                        d="M4 12a8 8 0 018-8v8H4z"
-                                    />
-                                </svg>
-                            ) : (
-                                <FaCheck size={18} />
-                            )}
-                            Salvar
-                        </button>
-                    </div>
-                </Form>
-            </div>
-            <div className="text-center mb-5" >
-                <Link to={-1} className='btn btn-danger'><KeyboardBackspaceIcon />  Voltar</Link>
+                </Form.Group>
+
+                <Form.Group controlId="quantidade">
+                    <Form.Label>Quantidade</Form.Label>
+                    <Form.Control
+                        type="number"
+                        {...register("quantidade", armamentoValidator.quantidade)}
+                        isInvalid={errors.quantidade}
+                        placeholder="Ex: 12"
+                    />
+                    <Form.Control.Feedback type="invalid">{errors.quantidade?.message}</Form.Control.Feedback>
+                </Form.Group>
+
+                {/* Botão */}
+                <div className="text-center">
+                    <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className={`inline-flex items-center justify-center gap-2 px-6 py-3 text-white font-semibold rounded-lg transition-all duration-300 ${isSubmitting
+                            ? "bg-green-400 cursor-not-allowed opacity-70"
+                            : "bg-green-600 hover:bg-green-700"
+                            }`}
+                    >
+                        {isSubmitting ? (
+                            <>
+                                <Spinner animation="border" size="sm" />
+                                Salvando...
+                            </>
+                        ) : (
+                            <>
+                                <FaCheck />
+                                Salvar
+                            </>
+                        )}
+                    </button>
+                </div>
+            </Form>
+
+            {/* Botão Voltar */}
+            <div className="text-center mt-8">
+                <Link to={-1} className="inline-flex items-center gap-2 text-sm text-white px-4 py-2 bg-red-600 hover:bg-red-700 rounded-md">
+                    <KeyboardBackspaceIcon fontSize="small" />
+                    Voltar
+                </Link>
             </div>
         </div>
-    )
-}
-export default Armamentos
+    );
+};
+
+export default Armamentos;

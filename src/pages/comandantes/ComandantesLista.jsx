@@ -11,6 +11,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import LoadingNaval from '../../components/LoadingNaval';
 
 const ComandantesLista = ({ loading }) => {
   const [comandante, setConmandante] = useState([])
@@ -58,6 +59,9 @@ const ComandantesLista = ({ loading }) => {
       }
     }
   }
+  if (loading || loadingState) {
+    return <LoadingNaval />;  // <-- Usa o loading naval aqui
+  }
 
   return (
     <div>
@@ -68,12 +72,7 @@ const ComandantesLista = ({ loading }) => {
         <Link className='btn btn-success mb-2 butao' to={'/comandantes/create'}><PersonAddIcon /> Inserir</Link>
       </div>
       {loading || loadingState ? (
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100vh", width: "100%" }}>
-          <h1>
-            <Spinner animation="grow" variant="warning" /> Carregando...
-          </h1>
-          <ProgressBar striped variant="warning" animated now={100} style={{ width: "50%", marginTop: "15px" }} />
-        </div>
+        <LoadingNaval />
       ) : comandante.length === 0 ? (
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100vh", width: "100%" }}>
           <h3>Nenhum registro encontrado.</h3>

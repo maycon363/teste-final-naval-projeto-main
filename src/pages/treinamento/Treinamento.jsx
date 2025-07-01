@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, InputGroup, Spinner } from "react-bootstrap";
+import { Form, Spinner } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { FaCheck } from "react-icons/fa";
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
@@ -10,6 +10,7 @@ import TreinamentoService from "../../services/academico/TreinamentoService";
 import { mask } from "remask";
 import ComandatesService from "../../services/academico/ComandatesService";
 import TrackChangesIcon from '@mui/icons-material/TrackChanges';
+import LoadingNaval from '../../components/LoadingNaval';
 
 const Treinamento = () => {
   const params = useParams();
@@ -31,11 +32,7 @@ const Treinamento = () => {
   function salvar(dados) {
     setIsSubmitting(true);
     setTimeout(() => {
-      if (params.id) {
-        TreinamentoService.update(params.id, dados);
-      } else {
-        TreinamentoService.create(dados);
-      }
+      params.id ? TreinamentoService.update(params.id, dados) : TreinamentoService.create(dados);
       setIsSubmitting(false);
       navigate("/treinamento");
     }, 1000);
@@ -46,41 +43,52 @@ const Treinamento = () => {
     setValue(event.target.name, mask(event.target.value, mascara));
   }
 
+  if (isSubmitting) {
+    return <LoadingNaval />;
+  }
+
   return (
-    <div>
-      <div className='para mb-3'>
-        <ReactPlayer playing loop controls={false} url='https://www.youtube.com/watch?v=f9br6kd08x4' />
+    <div className="bg-slate-900 text-white min-h-screen px-4 py-6 mb-2">
+      {/* Player de vídeo */}
+      <div className="max-w-4xl mx-auto mb-6 rounded overflow-hidden shadow-lg border border-slate-700">
+        <ReactPlayer
+          playing
+          loop
+          controls={false}
+          width="100%"
+          height="360px"
+          url='https://www.youtube.com/watch?v=f9br6kd08x4'
+        />
       </div>
 
-      <Form
-        className="mb-3"
-        style={{ background: '#1C1C1C', color: 'white', padding: "8px 12px 10px 12px" }}
-        onSubmit={handleSubmit(salvar)}
-      >
-        <div className="text-center mb-4">
-          <h1>
-            <TrackChangesIcon sx={{ fontSize: 50 }} color="primary" /> Inserir Navio para Treinamento
-          </h1>
-        </div>
+      {/* Título */}
+      <div className="text-center mb-5">
+        <h1 className="text-3xl md:text-4xl font-bold flex justify-center items-center gap-3 text-blue-400">
+          <TrackChangesIcon sx={{ fontSize: 40 }} />
+          Inserir Navio para Treinamento
+        </h1>
+        <p className="text-gray-400 mt-2">Preencha os dados corretamente abaixo</p>
+      </div>
 
-        <Form.Group className="mb-3" controlId="navio">
+      {/* Formulário */}
+      <Form
+        onSubmit={handleSubmit(salvar)}
+        className="bg-slate-800 max-w-2xl mx-auto p-6 rounded-xl shadow-lg border border-slate-600 space-y-4"
+      >
+        <Form.Group controlId="navio">
           <Form.Label>Nome do Navio</Form.Label>
           <Form.Control
             type="text"
             placeholder="Informe Nome do Navio"
-            aria-label="Informe Nome do Navio"
             isInvalid={!!errors.navio}
             {...register("navio", treinamentoValidator.navio)}
           />
-          <Form.Control.Feedback type="invalid">
-            {errors.navio?.message}
-          </Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{errors.navio?.message}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="guerra">
+        <Form.Group controlId="guerra">
           <Form.Label>Nome do Comandante</Form.Label>
           <Form.Select
-            aria-label="Informe Nome do Comandante"
             isInvalid={!!errors.guerra}
             {...register("guerra", treinamentoValidator.guerra)}
           >
@@ -89,122 +97,87 @@ const Treinamento = () => {
               <option key={i} value={item.guerra}>{item.guerra}</option>
             ))}
           </Form.Select>
-          <Form.Control.Feedback type="invalid">
-            {errors.guerra?.message}
-          </Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{errors.guerra?.message}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="classe">
+        <Form.Group controlId="classe">
           <Form.Label>Tipo da Classe do Navio</Form.Label>
           <Form.Control
             type="text"
             placeholder="Informe o tipo da classe do navio"
-            aria-label="Informe o tipo da classe do navio"
             isInvalid={!!errors.classe}
             {...register("classe", treinamentoValidator.classe)}
           />
-          <Form.Control.Feedback type="invalid">
-            {errors.classe?.message}
-          </Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{errors.classe?.message}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="tipo">
+        <Form.Group controlId="tipo">
           <Form.Label>Nome do Treinamento</Form.Label>
           <Form.Control
             type="text"
             placeholder="Informe Nome do treinamento"
-            aria-label="Informe Nome do treinamento"
             isInvalid={!!errors.tipo}
             {...register("tipo", treinamentoValidator.tipo)}
           />
-          <Form.Control.Feedback type="invalid">
-            {errors.tipo?.message}
-          </Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{errors.tipo?.message}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="marinheiro">
+        <Form.Group controlId="marinheiro">
           <Form.Label>Quantidade de Marinheiros</Form.Label>
           <Form.Control
             type="text"
             placeholder="Informe Quantidade de marinheiros"
-            aria-label="Informe Quantidade de marinheiros"
             isInvalid={!!errors.marinheiro}
             {...register("marinheiro", treinamentoValidator.marinheiro)}
           />
-          <Form.Control.Feedback type="invalid">
-            {errors.marinheiro?.message}
-          </Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{errors.marinheiro?.message}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="data">
+        <Form.Group controlId="data">
           <Form.Label>Data do Treinamento</Form.Label>
           <Form.Control
             type="text"
             placeholder="Informe Data do treinamento"
-            aria-label="Informe Data do treinamento"
             mask="99/99/9999"
             onChange={handleChange}
             isInvalid={!!errors.data}
             {...register("data", treinamentoValidator.data)}
           />
-          <Form.Control.Feedback type="invalid">
-            {errors.data?.message}
-          </Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{errors.data?.message}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-4" controlId="situacao">
+        <Form.Group controlId="situacao">
           <Form.Label>Nível do Treinamento</Form.Label>
           <Form.Select
-            aria-label="Informe o nível do Treinamento"
             isInvalid={!!errors.situacao}
             {...register("situacao", treinamentoValidator.situacao)}
           >
             <option value="">Informe o nível do Treinamento</option>
-            <option value="A">Nível baixo</option>
+            <option value="A">Nível Baixo</option>
             <option value="N">Nível Médio</option>
             <option value="I">Nível Alto</option>
           </Form.Select>
-          <Form.Control.Feedback type="invalid">
-            {errors.situacao?.message}
-          </Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{errors.situacao?.message}</Form.Control.Feedback>
         </Form.Group>
 
-        <div className="text-center mb-3">
+        {/* Botão de salvar */}
+        <div className="text-center">
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`inline-flex items-center justify-center gap-2 px-6 py-2 text-white text-lg font-medium rounded transition duration-200 ${isSubmitting
-                ? "bg-green-400 cursor-not-allowed opacity-70"
-                : "bg-green-600 hover:bg-green-700"
+            className={`inline-flex items-center justify-center gap-2 px-6 py-3 text-white font-semibold rounded-lg transition-all duration-300 ${isSubmitting
+              ? "bg-green-400 cursor-not-allowed opacity-70"
+              : "bg-green-600 hover:bg-green-700"
               }`}
           >
             {isSubmitting ? (
               <>
-                <svg
-                  className="animate-spin h-5 w-5 text-white"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  />
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8v8H4z"
-                  />
-                </svg>
+                <Spinner animation="border" size="sm" />
                 Salvando...
               </>
             ) : (
               <>
-                <FaCheck size={18} />
+                <FaCheck />
                 Salvar
               </>
             )}
@@ -212,9 +185,11 @@ const Treinamento = () => {
         </div>
       </Form>
 
-      <div className="text-center mb-3">
-        <Link to={-1} className="btn btn-danger">
-          <KeyboardBackspaceIcon /> Voltar
+      {/* Botão de voltar */}
+      <div className="text-center mt-6">
+        <Link to={-1} className="inline-flex items-center gap-2 text-sm text-white px-4 py-2 bg-red-600 hover:bg-red-700 rounded-md">
+          <KeyboardBackspaceIcon />
+          Voltar
         </Link>
       </div>
     </div>

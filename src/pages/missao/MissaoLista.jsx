@@ -9,11 +9,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import Swal from 'sweetalert2';
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
+import LoadingNaval from '../../components/LoadingNaval';
 
 const MissaoLista = ({ loading }) => {
 
   const [missao, seMissao] = useState([])
   const [loadingState, setLoadingState] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
 
@@ -58,6 +60,10 @@ const MissaoLista = ({ loading }) => {
     }
   }
 
+  if (isSubmitting) {
+    return <LoadingNaval />;
+  }
+
   return (
     <div>
       <div className="bg-dark text-white text-center mb-3 py-2">
@@ -73,12 +79,7 @@ const MissaoLista = ({ loading }) => {
         </Link>
       </div>
       {loading || loadingState ? (
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100vh", width: "100%" }}>
-          <h1>
-            <Spinner animation="grow" variant="warning" /> Carregando...
-          </h1>
-          <ProgressBar striped variant="warning" animated now={100} style={{ width: "50%", marginTop: "15px" }} />
-        </div>
+        <LoadingNaval />
       ) : missao.length === 0 ? (
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100vh", width: "100%" }}>
           <h3>Nenhum registro encontrado.</h3>
