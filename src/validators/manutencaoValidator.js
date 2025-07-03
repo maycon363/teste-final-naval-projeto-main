@@ -1,53 +1,43 @@
 const manutencaoValidator = {
-    nome: {
-        required: "O campo Nome do Navio é Obrigatório",
-        minLength: {
-            value: 6,
-            message: "Qtd mínima de caracteres não informado"
-        },
-        maxLength: {
-            value: 12,
-            message: "Qtd máxima de caracteres ultrapassada"
-        },
-        min: {
-            value: 3,
-            message: "O valor mínimo é 3"
-        },
+  nome: {
+    required: "Nome do navio é obrigatório.",
+    minLength: {
+      value: 4,
+      message: "O nome deve ter pelo menos 4 caracteres.",
     },
-    classe: {
-        required: "O campo Classe é Obrigatório",
-        minLength: {
-            value: 6,
-            message: "Qtd mínima de caracteres não informado"
-        },
-        maxLength: {
-            value: 15,
-            message: "Qtd máxima de caracteres ultrapassada"
-        },
+    maxLength: {
+      value: 30,
+      message: "Nome ultrapassa o limite de 30 caracteres.",
     },
-    data: {
-        required: "O campo Data Limite da Entrega é Obrigatório",
-        minLength: {
-            value: 6,
-            message: "Qtd mínima de caracteres não informado"
-        },
-        maxLength: {
-            value: 15,
-            message: "Qtd máxima de caracteres ultrapassada"
-        },
+  },
+  classe: {
+    required: "Classe do navio é obrigatória.",
+    minLength: {
+      value: 4,
+      message: "Classe deve ter ao menos 4 caracteres.",
     },
-    custo: {
-        required: "O campo Investimento é Obrigatório",
-        minLength: {
-            value: 2,
-            message: "Qtd mínima de caracteres não informado"
-        },
-        maxLength: {
-            value: 15,
-            message: "Qtd máxima de caracteres ultrapassada"
-        },
+    maxLength: {
+      value: 25,
+      message: "Classe ultrapassa o limite de 25 caracteres.",
     },
-}
+  },
+  data: {
+    required: "Data de entrega é obrigatória.",
+    pattern: {
+      value: /^\d{2}\/\d{2}\/\d{4}$/,
+      message: "Formato inválido. Use: dd/mm/aaaa",
+    },
+  },
+  custo: {
+    required: "Investimento é obrigatório.",
+    pattern: {
+      value: /^[\d.,]+$/,
+      message: "Valor inválido. Use apenas números e ponto/virgula.",
+    },
+  },
+  situacao: {
+    required: "Selecione o andamento da manutenção.",
+  },
+};
 
-
-export default manutencaoValidator
+export default manutencaoValidator;

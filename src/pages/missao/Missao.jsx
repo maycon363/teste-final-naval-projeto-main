@@ -82,12 +82,15 @@ const Missao = () => {
       >
         <Form.Group controlId="nome">
           <Form.Label>Nome do Navio</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Informe o Nome do Navio"
-            isInvalid={!!errors.nome}
+          <Form.Select
             {...register("nome", missaoValidator.nome)}
-          />
+            isInvalid={!!errors.nome}
+          >
+            <option value="">Selecione o navio</option>
+            {missao.map((n, i) => (
+              <option key={i} value={n.nome}>{n.nome}</option>
+            ))}
+          </Form.Select>
           <Form.Control.Feedback type="invalid">{errors.nome?.message}</Form.Control.Feedback>
         </Form.Group>
 

@@ -1,43 +1,43 @@
 const armamentoValidator = {
-    nome: {
-        required: "O campo Nome do Armamento é Obrigatório",
-        minLength: {
-            value: 5,
-            message: "Qtd mínima de caracteres não informado"
-        },
-        maxLength: {
-            value: 20,
-            message: "Qtd máxima de caracteres ultrapassada"
-        },
+  nome: {
+    required: "Nome do armamento é obrigatório.",
+    minLength: {
+      value: 5,
+      message: "O nome deve ter no mínimo 5 caracteres.",
     },
-    data: {
-        required: "O campo Data de Entrega é Obrigatório",
-        minLength: {
-            value: 2,
-            message: "Qtd mínima de caracteres não informado"
-        },
-        maxLength: {
-            value: 15,
-            message: "Qtd máxima de caracteres ultrapassada"
-        },
+    maxLength: {
+      value: 50,
+      message: "O nome deve ter no máximo 50 caracteres.",
     },
-    custo: {
-        required: "O campo Investimento é Obrigatório",
-        maxLength: {
-            value: 20,
-            message: "Qtd máxima de caracteres ultrapassada"
-        },
+  },
+  data: {
+    required: "Data de entrega é obrigatória.",
+    pattern: {
+      value: /^\d{2}\/\d{2}\/\d{4}$/,
+      message: "Formato válido: dd/mm/aaaa",
     },
-    quantidade: {
-        required: "O campo Quantidade é Obrigatório",
-        maxLength: {
-            value: 20,
-            message: "Qtd máxima de caracteres ultrapassada"
-        },
+  },
+  custo: {
+    required: "Investimento é obrigatório.",
+    maxLength: {
+      value: 20,
+      message: "Valor excede o limite permitido.",
     },
-    imges: {
-        required: "Selecione um Modelo de arma"
+  },
+  quantidade: {
+    required: "Quantidade é obrigatória.",
+    min: {
+      value: 1,
+      message: "Deve haver pelo menos 1 unidade.",
     },
-}
+    max: {
+      value: 1000,
+      message: "Valor máximo excedido.",
+    },
+  },
+  imges: {
+    required: "Selecione um tipo de armamento.",
+  },
+};
 
-export default armamentoValidator
+export default armamentoValidator;

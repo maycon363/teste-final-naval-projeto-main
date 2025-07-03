@@ -75,20 +75,26 @@ const Construcao = () => {
       >
         <Form.Group controlId="imges">
           <Form.Label>Tipo de Navio</Form.Label>
-          <Form.Select {...register("imges", construcaoValidator.imgs)}>
-            <option>Selecione o tipo de Navio</option>
-            <option value={"28"}>Cruzador</option>
-            <option value={"27"}>Porta-Aviões</option>
-            <option value={"26"}>Porta-helicópteros</option>
-            <option value={"25"}>Destroyer</option>
-            <option value={"24"}>Submarino</option>
-            <option value={"23"}>Fragata</option>
-            <option value={"22"}>Corveta</option>
-            <option value={"21"}>Navio Patrulha</option>
-            <option value={"20"}>Navio-tanque</option>
-            <option value={"19"}>Navio Autônomo de Guerra</option>
-            <option value={"18"}>Lancha de Guerra</option>
+          <Form.Select
+            {...register("imges", construcaoValidator.imges)}
+            isInvalid={errors.imges}
+          >
+            <option value="">Selecione o tipo de Navio</option>
+            <option value="28">Cruzador</option>
+            <option value="27">Porta-Aviões</option>
+            <option value="26">Porta-helicópteros</option>
+            <option value="25">Destroyer</option>
+            <option value="24">Submarino</option>
+            <option value="23">Fragata</option>
+            <option value="22">Corveta</option>
+            <option value="21">Navio Patrulha</option>
+            <option value="20">Navio-tanque</option>
+            <option value="19">Navio Autônomo de Guerra</option>
+            <option value="18">Lancha de Guerra</option>
           </Form.Select>
+          <Form.Control.Feedback type="invalid">
+            {errors.imges?.message}
+          </Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group controlId="nome">

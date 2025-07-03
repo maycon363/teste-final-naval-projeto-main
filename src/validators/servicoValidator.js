@@ -1,59 +1,42 @@
 const servicoValidator = {
-    nome: {
-        required: "O campo Nome é Obrigatório",
-        minLength: {
-            value: 6,
-            message: "Qtd mínima de caracteres não informado"
-        },
-        maxLength: {
-            value: 12,
-            message: "Qtd máxima de caracteres ultrapassada"
-        },
-        min: {
-            value: 3,
-            message: "O valor mínimo é 3"
-        },
+  imges: {
+    required: "A classe do navio é obrigatória.",
+  },
+  nome: {
+    required: "O tipo da classe do navio é obrigatório.",
+    minLength: {
+      value: 4,
+      message: "Mínimo de 4 caracteres.",
     },
-    classe: {
-        required: "O campo Classe é Obrigatório",
-        minLength: {
-            value: 6,
-            message: "Qtd mínima de caracteres não informado"
-        },
-        maxLength: {
-            value: 12,
-            message: "Qtd máxima de caracteres ultrapassada"
-        },
-        min: {
-            value: 3,
-            message: "O valor mínimo é 3"
-        },
+    maxLength: {
+      value: 30,
+      message: "Máximo de 30 caracteres.",
     },
-    missao: {
-        required: "O campo Tipo de Serviço é Obrigatório",
-        minLength: {
-            value: 6,
-            message: "Qtd mínima de caracteres não informado"
-        },
-        maxLength: {
-            value: 12,
-            message: "Qtd máxima de caracteres ultrapassada"
-        },
+  },
+  missao: {
+    required: "O tipo de serviço é obrigatório.",
+    minLength: {
+      value: 4,
+      message: "Mínimo de 4 caracteres.",
     },
-    data: {
-        required: "O campo Data é Obrigatório",
-        minLength: {
-            value: 6,
-            message: "Qtd mínima de caracteres não informado"
-        },
-        maxLength: {
-            value: 12,
-            message: "Qtd máxima de caracteres ultrapassada"
-        },
+    maxLength: {
+      value: 50,
+      message: "Máximo de 50 caracteres.",
     },
-    imgs: {
-        required: "O campo Data é Obrigatório",
+  },
+  guerra: {
+    required: "O nome do comandante é obrigatório.",
+  },
+  data: {
+    required: "A data do serviço é obrigatória.",
+    pattern: {
+      value: /^\d{2}\/\d{2}\/\d{4}$/,
+      message: "Formato inválido. Use: dd/mm/aaaa",
     },
-}
+  },
+  situacao: {
+    required: "A situação é obrigatória.",
+  },
+};
 
-export default servicoValidator
+export default servicoValidator;

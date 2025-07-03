@@ -1,47 +1,57 @@
 const ComandantesValidator = {
-    guerra: {
-        required: "O campo Nome de Guerra é Obrigatório",
-        minLength: {
-            value: 5,
-            message: "Qtd mínima de caracteres não informado"
-        },
-        maxLength: {
-            value: 20,
-            message: "Qtd máxima de caracteres ultrapassada"
-        },
+  guerra: {
+    required: "Nome de guerra é obrigatório.",
+    minLength: {
+      value: 5,
+      message: "Nome deve conter ao menos 5 caracteres.",
     },
-    idade: {
-        required: "O campo Idade é Obrigatório",
-        minLength: {
-            value: 2,
-            message: "Qtd mínima de caracteres não informado"
-        },
-        maxLength: {
-            value: 15,
-            message: "Qtd máxima de caracteres ultrapassada"
-        },
+    maxLength: {
+      value: 50,
+      message: "Nome excede o limite de 50 caracteres.",
     },
-    data: {
-        required: "O campo Data de Nascimento é Obrigatório",
-        maxLength: {
-            value: 10,
-            message: "Qtd máxima de caracteres ultrapassada"
-        },
+  },
+  email: {
+    required: "E-mail é obrigatório.",
+    pattern: {
+      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+      message: "E-mail inválido.",
     },
-    cpf: {
-        required: "O campo CPF é Obrigatório",
-        maxLength: {
-            value: 20,
-            message: "Qtd máxima de caracteres ultrapassada"
-        },
+  },
+  idade: {
+    required: "Idade é obrigatória.",
+    min: {
+      value: 18,
+      message: "A idade mínima é 18 anos.",
     },
-    rg: {
-        required: "O campo RG é Obrigatório",
-        maxLength: {
-            value: 15,
-            message: "Qtd máxima de caracteres ultrapassada"
-        },
+    max: {
+      value: 80,
+      message: "A idade máxima permitida é 80 anos.",
     },
-}
+  },
+  data: {
+    required: "Data de nascimento é obrigatória.",
+    pattern: {
+      value: /^\d{2}\/\d{2}\/\d{4}$/,
+      message: "Formato válido: dd/mm/aaaa",
+    },
+  },
+  cpf: {
+    required: "CPF é obrigatório.",
+    pattern: {
+      value: /^\d{3}\.\d{3}\.\d{3}-\d{2}$/,
+      message: "Formato válido: 000.000.000-00",
+    },
+  },
+  rg: {
+    required: "RG é obrigatório.",
+    maxLength: {
+      value: 15,
+      message: "RG excede o limite de 15 caracteres.",
+    },
+  },
+  situacao: {
+    required: "Selecione a situação do comandante.",
+  },
+};
 
-export default ComandantesValidator
+export default ComandantesValidator;

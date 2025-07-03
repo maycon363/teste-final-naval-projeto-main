@@ -1,85 +1,57 @@
 const treinamentoValidator = {
-    nome: {
-        required: "O campo Nome do Treinamento é Obrigatório",
-        minLength: {
-            value: 6,
-            message: "Qtd mínima de caracteres não informado"
-        },
-        maxLength: {
-            value: 15,
-            message: "Qtd máxima de caracteres ultrapassada"
-        },
-        min: {
-            value: 3,
-            message: "O valor mínimo é 3"
-        },
+  navio: {
+    required: "O nome do navio é obrigatório.",
+    minLength: {
+      value: 4,
+      message: "Mínimo de 4 caracteres.",
     },
-    tipo: {
-        required: "O campo Tipo de Treinamento é Obrigatório",
-        minLength: {
-            value: 6,
-            message: "Qtd mínima de caracteres não informado"
-        },
-        maxLength: {
-            value: 12,
-            message: "Qtd máxima de caracteres ultrapassada"
-        },
-        min: {
-            value: 3,
-            message: "O valor mínimo é 3"
-        },
+    maxLength: {
+      value: 30,
+      message: "Máximo de 30 caracteres.",
     },
-    marinheiro: {
-        required: "O campo Marinheiros é Obrigatório",
-        minLength: {
-            value: 1,
-            message: "Qtd mínima de caracteres não informado"
-        },
-        maxLength: {
-            value: 12,
-            message: "Qtd máxima de caracteres ultrapassada"
-        }
+  },
+  guerra: {
+    required: "O nome do comandante é obrigatório.",
+  },
+  classe: {
+    required: "A classe do navio é obrigatória.",
+    minLength: {
+      value: 4,
+      message: "Mínimo de 4 caracteres.",
     },
-    data: {
-        required: "O campo Data do Treinamento é Obrigatório",
-        minLength: {
-            value: 6,
-            message: "Qtd mínima de caracteres não informado"
-        },
-        maxLength: {
-            value: 15,
-            message: "Qtd máxima de caracteres ultrapassada"
-        },
-        min: {
-            value: 3,
-            message: "O valor mínimo é 3"
-        },
+    maxLength: {
+      value: 30,
+      message: "Máximo de 30 caracteres.",
     },
-    navio: {
-        required: "O campo Nome do Navio é Obrigatório",
-        minLength: {
-            value: 6,
-            message: "Qtd mínima de caracteres não informado"
-        },
-        maxLength: {
-            value: 15,
-            message: "Qtd máxima de caracteres ultrapassada"
-        },
+  },
+  tipo: {
+    required: "O nome do treinamento é obrigatório.",
+    minLength: {
+      value: 4,
+      message: "Mínimo de 4 caracteres.",
     },
-    classe: {
-        required: "O campo Classe é Obrigatório",
-        minLength: {
-            value: 6,
-            message: "Qtd mínima de caracteres não informado"
-        },
-        maxLength: {
-            value: 15,
-            message: "Qtd máxima de caracteres ultrapassada"
-        },
+    maxLength: {
+      value: 40,
+      message: "Máximo de 40 caracteres.",
     },
+  },
+  marinheiro: {
+    required: "A quantidade de marinheiros é obrigatória.",
+    pattern: {
+      value: /^[0-9]+$/,
+      message: "Informe apenas números.",
+    },
+  },
+  data: {
+    required: "A data do treinamento é obrigatória.",
+    pattern: {
+      value: /^\d{2}\/\d{2}\/\d{4}$/,
+      message: "Formato inválido. Use: dd/mm/aaaa",
+    },
+  },
+  situacao: {
+    required: "O nível do treinamento é obrigatório.",
+  },
+};
 
-    
-}
-
-
-export default treinamentoValidator
+export default treinamentoValidator;

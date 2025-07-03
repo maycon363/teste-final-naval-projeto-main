@@ -124,12 +124,18 @@ const Manutencao = () => {
 
         <Form.Group controlId="situacao">
           <Form.Label>Andamento da Manutenção</Form.Label>
-          <Form.Select {...register("situacao", manutencaoValidator.situacao)}>
+          <Form.Select
+            {...register("situacao", manutencaoValidator.situacao)}
+            isInvalid={errors.situacao}
+          >
             <option value="">Selecione o andamento</option>
             <option value="N">Não Iniciado</option>
             <option value="A">Rápido</option>
             <option value="I">Lento</option>
           </Form.Select>
+          <Form.Control.Feedback type="invalid">
+            {errors.situacao?.message}
+          </Form.Control.Feedback>
         </Form.Group>
 
         {/* Botão */}
