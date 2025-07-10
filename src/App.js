@@ -25,7 +25,7 @@ import ScrollToTop from './components/ScrollToTop';
 import ArmamentosNaval from './pages/ArmamentosNaval';
 import Home from 'pages/home';
 
-const basename = process.env.NODE_ENV === "production" ? process.env.PUBLIC_URL : "";
+const basename = "/projeto-navalremake";
 
 function App() {
   return (
