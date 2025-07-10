@@ -25,7 +25,7 @@ import ScrollToTop from './components/ScrollToTop';
 import ArmamentosNaval from './pages/ArmamentosNaval';
 import Home from 'pages/home';
 
-const basename = "/projeto-navalremake";
+const basename = "/teste-final-naval-projeto-main";
 
 function App() {
   return (
